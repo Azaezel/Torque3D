@@ -109,7 +109,7 @@ new ShaderData( AL_SpecMapShader )
    OGLVertexShaderFile = "shaders/common/postFx/gl/postFxV.glsl";
    OGLPixelShaderFile  = "shaders/common/lighting/advanced/gl/dbgSpecMapVisualizeP.glsl";
 
-   samplerNames[0] = "matinfoTex";
+   samplerNames[0] = "colorBufferTex";
    pixVersion = 2.0;
 };
 
