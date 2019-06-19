@@ -2218,23 +2218,19 @@ void RTLightingFeatHLSL::processPix(   Vector<ShaderComponent*> &componentList,
       }
    }
 
-   Var *albedo = (Var*)LangElement::find(getOutputTargetVarName(ShaderFeature::DefaultTarget));
-
-   Var *ambient  = new Var( "ambient", "float4" );
-   ambient->uniform = true;
-   ambient->constSortPos = cspPass;
-
+   Var *curColor = (Var*)LangElement::find(getOutputTargetVarName(ShaderFeature::DefaultTarget));
+   
    // Calculate the diffuse shading and specular powers.
    meta->addStatement( new GenOp( "   compute4Lights( @, @, @, @,\r\n"
                                   "      @, @, @, @, @, @, @, @, @,\r\n"
                                   "      @, @ );\r\n", 
       wsView, wsPosition, wsNormal, lightMask,
-      inLightPos, inLightInvRadiusSq, inLightColor, inLightSpotDir, inLightSpotAngle, lightSpotFalloff, smoothness, metalness, albedo,
+      inLightPos, inLightInvRadiusSq, inLightColor, inLightSpotDir, inLightSpotAngle, lightSpotFalloff, smoothness, metalness, curColor,
       rtShading, specular ) );
 
    // Apply the lighting to the diffuse color.
-   LangElement *lighting = new GenOp( "float4( @.rgb + @.rgb, 1 )", rtShading, ambient );
-   meta->addStatement( new GenOp( "   @;\r\n", assignColor( lighting, Material::Mul ) ) );
+   LangElement* lighting = new GenOp("(@ + @)", rtShading, specular);
+   meta->addStatement( new GenOp( "   @.rgb+=@.rgb;\r\n", curColor, lighting) );
    output = meta;  
 }
 
