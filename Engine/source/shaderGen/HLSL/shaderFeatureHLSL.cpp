@@ -3128,10 +3128,10 @@ void ReflectionProbeFeatHLSL::processPix(Vector<ShaderComponent*> &componentList
    Var* surface = new Var("surface", "Surface");
    meta->addStatement(new GenOp("  @ = createForwardSurface(@,@,@,@,@,@,@);\r\n\n", new DecOp(surface), diffuseColor, wsNormal, matinfo,
       inTex, wsPosition, wsEyePos, wsView));
-   String computeForwardProbes = String::String("   @.rgb = computeForwardProbes(@,@,@,@,@,@,@,@,@,\r\n\t\t");
-   computeForwardProbes += String::String("@,TORQUE_SAMPLER2D_MAKEARG(@),\r\n\t\t"); 
-   computeForwardProbes += String::String("TORQUE_SAMPLERCUBE_MAKEARG(@), TORQUE_SAMPLERCUBE_MAKEARG(@), \r\n\t\t");
-   computeForwardProbes += String::String("TORQUE_SAMPLERCUBEARRAY_MAKEARG(@),TORQUE_SAMPLERCUBEARRAY_MAKEARG(@)).rgb; \r\n");
+   String computeForwardProbes = String("   @.rgb += computeForwardProbes(@,@,@,@,@,@,@,@,@,\r\n\t\t");
+   computeForwardProbes += String("@,TORQUE_SAMPLER2D_MAKEARG(@),\r\n\t\t"); 
+   computeForwardProbes += String("TORQUE_SAMPLERCUBE_MAKEARG(@), TORQUE_SAMPLERCUBE_MAKEARG(@), \r\n\t\t");
+   computeForwardProbes += String("TORQUE_SAMPLERCUBEARRAY_MAKEARG(@),TORQUE_SAMPLERCUBEARRAY_MAKEARG(@)).rgb; \r\n");
       
    meta->addStatement(new GenOp(computeForwardProbes.c_str(), diffuseColor, surface, cubeMips, numProbes, worldToObjArray, probeConfigData, inProbePosArray, bbMinArray, bbMaxArray, inRefPosArray,
       hasSkylight, BRDFTexture, 
