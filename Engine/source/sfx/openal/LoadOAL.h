@@ -225,7 +225,6 @@ typedef struct
 	LPALCGETPROCADDRESS			alcGetProcAddress;
 	LPALCGETENUMVALUE			   alcGetEnumValue;
     
-#if defined(AL_ALEXT_PROTOTYPES)
    LPALGENEFFECTS				   alGenEffects;
    LPALDELETEEFFECTS			   alDeleteEffects;
    LPALISEFFECT				   alIsEffect;
@@ -249,7 +248,6 @@ typedef struct
    LPALGETAUXILIARYEFFECTSLOTIV			alGetAuxiliaryEffectSlotiv;
    LPALGETAUXILIARYEFFECTSLOTF			alGetAuxiliaryEffectSlotf;
    LPALGETAUXILIARYEFFECTSLOTFV			alGetAuxiliaryEffectSlotfv;
-#endif
 } OPENALFNTABLE, *LPOPENALFNTABLE;
 #endif
 
