@@ -226,6 +226,8 @@ enum GFXFormat
    GFXFormat_UNKNOWNSIZE = GFXFormatBC1
 };
 
+#define GFXFORMAT_IS_SRGB ( GFXFormatR8G8B8_SRGB | GFXFormatR8G8B8A8_SRGB | GFXFormatBC1_SRGB | GFXFormatBC2_SRGB | GFXFormatBC3_SRGB )
+
 /// Returns the byte size of the pixel for non-compressed formats.
 inline U32 GFXFormat_getByteSize( GFXFormat format )
 {
