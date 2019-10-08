@@ -68,9 +68,9 @@ class ConditionerFeature;
 
 ///
 GFX_DeclareTextureProfile( PostFxTargetProfile );
-
-
-
+GFX_DeclareTextureProfile( PostFxSRGBTargetProfile );
+GFX_DeclareTextureProfile( PostFxTargetProfileMips );
+GFX_DeclareTextureProfile( PostFxSRGBTargetProfileMips );
 
 ///
 class PostEffect : public SimGroup
@@ -89,8 +89,11 @@ public:
 protected:
 
    FileName mTexFilename[NumTextures];
+   //input configs
    bool mTexSRGB[NumTextures];
-
+   bool mHasMips[NumTextures];
+   //output config
+   bool mGensMips;
    enum
    {
       NormalTextureType = 0,

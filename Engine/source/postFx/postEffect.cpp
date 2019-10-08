@@ -133,7 +133,33 @@ GFX_ImplementTextureProfile(  PostFxTargetProfile,
                               GFXTextureProfile::DiffuseMap,
                               GFXTextureProfile::PreserveSize |
                               GFXTextureProfile::RenderTarget |
+                              GFXTextureProfile::NoMipmap |
                               GFXTextureProfile::Pooled,
+                              GFXTextureProfile::NONE );
+
+GFX_ImplementTextureProfile(  PostFxSRGBTargetProfile,
+                              GFXTextureProfile::DiffuseMap,
+                              GFXTextureProfile::PreserveSize |
+                              GFXTextureProfile::RenderTarget |
+                              GFXTextureProfile::NoMipmap |
+                              GFXTextureProfile::Pooled |
+                              GFXTextureProfile::SRGB, 
+                              GFXTextureProfile::NONE );
+
+GFX_ImplementTextureProfile(  PostFxTargetProfileMips,
+                              GFXTextureProfile::DiffuseMap,
+                              GFXTextureProfile::PreserveSize |
+                              GFXTextureProfile::RenderTarget |
+                              GFXTextureProfile::NoMipmap |
+                              GFXTextureProfile::Pooled,
+                              GFXTextureProfile::NONE );
+
+GFX_ImplementTextureProfile(  PostFxSRGBTargetProfileMips,
+                              GFXTextureProfile::DiffuseMap,
+                              GFXTextureProfile::PreserveSize |
+                              GFXTextureProfile::RenderTarget |
+                              GFXTextureProfile::Pooled |
+                              GFXTextureProfile::SRGB,
                               GFXTextureProfile::NONE );
 
 IMPLEMENT_CONOBJECT(PostEffect);
@@ -144,7 +170,7 @@ GFX_ImplementTextureProfile( PostFxTextureProfile,
                             GFXTextureProfile::Static | GFXTextureProfile::PreserveSize | GFXTextureProfile::NoMipmap,
                             GFXTextureProfile::NONE );
 
-GFX_ImplementTextureProfile( PostFxTextureSRGBProfile,
+GFX_ImplementTextureProfile( PostFxSRGBTextureProfile,
                              GFXTextureProfile::DiffuseMap,
                              GFXTextureProfile::Static | GFXTextureProfile::PreserveSize | GFXTextureProfile::NoMipmap | GFXTextureProfile::SRGB,
                              GFXTextureProfile::NONE);
@@ -161,6 +187,22 @@ GFX_ImplementTextureProfile( VRDepthProfile,
                             GFXTextureProfile::PreserveSize |
                             GFXTextureProfile::NoMipmap |
                             GFXTextureProfile::ZTarget,
+                            GFXTextureProfile::NONE );
+
+GFX_ImplementTextureProfile( PostFxTextureProfileMips,
+                            GFXTextureProfile::DiffuseMap,
+                            GFXTextureProfile::Static | GFXTextureProfile::PreserveSize,
+                            GFXTextureProfile::NONE );
+
+GFX_ImplementTextureProfile( PostFxSRGBTextureProfileMips,
+                             GFXTextureProfile::DiffuseMap,
+                             GFXTextureProfile::Static | GFXTextureProfile::PreserveSize | GFXTextureProfile::SRGB,
+                             GFXTextureProfile::NONE);
+
+GFX_ImplementTextureProfile( VRTextureProfileMips,
+                            GFXTextureProfile::DiffuseMap,
+                            GFXTextureProfile::PreserveSize |
+                            GFXTextureProfile::RenderTarget,
                             GFXTextureProfile::NONE );
 
 void PostEffect::EffectConst::set( const String &newVal )
@@ -452,7 +494,8 @@ void PostEffect::EffectConst::setToBuffer( GFXShaderConstBufferRef buff )
 //-------------------------------------------------------------------------
 
 PostEffect::PostEffect()
-   :  mRenderTime( PFXAfterDiffuse ),
+   :  mGensMips(false),
+      mRenderTime( PFXAfterDiffuse ),
       mRenderPriority( 1.0 ),
       mEnabled( false ),
       mStateBlockData( NULL ),
@@ -500,6 +543,7 @@ PostEffect::PostEffect()
       mMatScreenToCameraSC(NULL)
 {
    dMemset( mTexSRGB, 0, sizeof(bool) * NumTextures);
+   dMemset( mHasMips, 0, sizeof(bool) * NumTextures);
    dMemset( mActiveTextures, 0, sizeof( GFXTextureObject* ) * NumTextures );
    dMemset( mActiveNamedTarget, 0, sizeof( NamedTexTarget* ) * NumTextures );
    dMemset( mActiveTextureViewport, 0, sizeof( RectI ) * NumTextures );
@@ -539,6 +583,9 @@ void PostEffect::initPersistFields()
    addField( "targetFormat", TypeGFXFormat, Offset( mTargetFormat, PostEffect ),
       "Format of the target texture, not applicable if writing to the backbuffer." );
 
+   addField("gensMips", TypeBool, Offset(mGensMips, PostEffect),
+      "Does this generate mipmaps on the target.");
+
    addField( "targetClearColor", TypeColorF, Offset( mTargetClearColor, PostEffect ),
       "Color to which the target texture is cleared before rendering." );
 
@@ -554,6 +601,9 @@ void PostEffect::initPersistFields()
 
    addField("textureSRGB", TypeBool, Offset(mTexSRGB, PostEffect), NumTextures,
       "Set input texture to be sRGB");
+
+   addField("hasMips", TypeBool, Offset(mHasMips, PostEffect), NumTextures,
+      "Set input texture to use Mips");
 
    addField( "renderTime", TYPEID< PFXRenderTime >(), Offset( mRenderTime, PostEffect ),
       "When to process this effect during the frame." );
@@ -610,12 +660,22 @@ bool PostEffect::onAdd()
             texFilename[0] == '#' )
          continue;
 
-      GFXTextureProfile *profile = &PostFxTextureProfile;
+      //default to straight linear, no mipmap input
+      GFXTextureProfile* profile = &PostFxTextureProfile;
       if (mTexSRGB[i])
-         profile = &PostFxTextureSRGBProfile;
-
+      {
+         if (mHasMips[i])
+            profile = &PostFxSRGBTextureProfileMips;
+         else
+            profile = &PostFxSRGBTextureProfile;
+      }
+      else
+      {
+         if (mHasMips[i])
+            profile = &PostFxTextureProfileMips;
+      }
       // Try to load the texture.
-      bool success = mTextures[i].set( texFilename, &PostFxTextureProfile, avar( "%s() - (line %d)", __FUNCTION__, __LINE__ ) );
+      bool success = mTextures[i].set( texFilename, profile, avar( "%s() - (line %d)", __FUNCTION__, __LINE__ ) );
       if (!success)
          Con::errorf("Invalid Texture for PostEffect (%s), The Texture '%s' does not exist!", this->getName(), texFilename.c_str());
    }
@@ -1258,8 +1318,24 @@ void PostEffect::_setupTarget( const SceneRenderState *state, bool *outClearTarg
             !mTargetTex ||
             mTargetTex.getWidthHeight() != targetSize )
       {
-         mTargetTex.set( targetSize.x, targetSize.y, mTargetFormat,
-            &PostFxTargetProfile, "PostEffect::_setupTarget" );
+
+         //default to straight linear, no mipmap output
+         GFXTextureProfile* outProfile = &PostFxTargetProfile;
+         if (mTargetFormat & GFXFORMAT_IS_SRGB)
+         {
+            if (mGensMips)
+               outProfile = &PostFxSRGBTargetProfileMips;
+            else
+               outProfile = &PostFxSRGBTargetProfile;
+         }
+         else
+         {
+            if (mGensMips)
+               outProfile = &PostFxTargetProfileMips;
+         }
+
+         mTargetTex.set(targetSize.x, targetSize.y, mTargetFormat,
+               outProfile, "PostEffect::_setupTarget");
 
          if ( mTargetClear == PFXTargetClear_OnCreate )
             *outClearTarget = true;
@@ -1653,7 +1729,21 @@ void PostEffect::setTexture( U32 index, const String &texFilePath )
 		return;
 
     // Try to load the texture.
-    mTextures[index].set( texFilePath, &PostFxTextureProfile, avar( "%s() - (line %d)", __FUNCTION__, __LINE__ ) );
+    //default to straight linear, no mipmap input
+    GFXTextureProfile* profile = &PostFxTextureProfile;
+    if (mTexSRGB[index])
+    {
+       if (mHasMips[index])
+          profile = &PostFxSRGBTargetProfileMips;
+       else
+          profile = &PostFxSRGBTargetProfile;
+    }
+    else
+    {
+       if (mHasMips[index])
+          profile = &PostFxTextureProfileMips;
+    }
+    mTextures[index].set( texFilePath, profile, avar( "%s() - (line %d)", __FUNCTION__, __LINE__ ) );
 
     mTextureType[index] = NormalTextureType;
 }
@@ -1830,7 +1920,23 @@ void PostEffect::_checkRequirements()
    {
       Vector<GFXFormat> formats;
       formats.push_back( mTargetFormat );
-      GFXFormat format = GFX->selectSupportedFormat(  &PostFxTargetProfile,
+
+      //default to straight linear, no mipmap output
+      GFXTextureProfile* outProfile = &PostFxTargetProfile;
+      if (mTargetFormat & GFXFORMAT_IS_SRGB)
+      {
+         if (mGensMips)
+            outProfile = &PostFxSRGBTargetProfileMips;
+         else
+            outProfile = &PostFxSRGBTargetProfile;
+      }
+      else
+      {
+         if (mGensMips)
+            outProfile = &PostFxTargetProfileMips;
+      }
+
+      GFXFormat format = GFX->selectSupportedFormat(  outProfile,
                                                       formats, 
                                                       true,
                                                       false,
