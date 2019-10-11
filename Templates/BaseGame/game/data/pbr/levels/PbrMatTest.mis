@@ -86,7 +86,7 @@ new Scene(PbrMatTestLevel) {
       surfaceTexture = "Floor_Material";
       surface = "0 0 0 1 0 0 0.5 1 0 0 1 1 0 1 1";
       surface = "0 1 0 0 0 0 -0.5 1 0 0 1 1 0 1 1";
-      surface = "0.707107 0 0 0.707107 0 4 0 1 0 0 1 1 0 1 1";
+      surface = "0.707107 0 0 0.707106 0 4 0 1 0 0 1 1 0 1 1";
       surface = "0 0.707107 -0.707107 0 0 -4 -2.27374e-13 1 0 0 1 1 0 1 1";
       surface = "0.5 0.5 -0.5 0.5 -4 0 -1.49012e-08 1 0 0 1 1 0 1 1";
       surface = "0.5 -0.5 0.5 0.5 4 0 -1.49012e-08 1 0 0 1 1 0 1 1";
@@ -266,7 +266,7 @@ new Scene(PbrMatTestLevel) {
 
       surface = "0 0 0 1 0 0 0.837898 0 0 0 1 1 0 1 1";
       surface = "0 1 0 0 0 0 -0.837898 0 0 0 1 1 0 1 1";
-      surface = "0.707107 0 0 0.707106 0 0.847632 0 0 0 0 1 1 0 1 1";
+      surface = "0.707107 0 0 0.707107 0 0.847632 0 0 0 0 1 1 0 1 1";
       surface = "0 0.707107 -0.707107 0 0 -0.847632 0 0 0 0 1 1 0 1 1";
       surface = "0.5 0.5 -0.5 0.5 -0.412576 0 -1.53859e-07 0 0 0 1 1 0 1 1";
       surface = "0.5 -0.5 0.5 0.5 0.412576 0 -1.53859e-07 0 0 0 1 1 0 1 1";
@@ -311,6 +311,20 @@ new Scene(PbrMatTestLevel) {
       shadowDarkenColor = "0 0 0 -1";
       includeLightmappedGeometryInShadow = "0";
       position = "0.110554 -2.2668 1.41582";
+      rotation = "1 0 0 0";
+      canSave = "1";
+      canSaveDynamicFields = "1";
+   };
+   new TerrainBlock() {
+      terrainFile = "data/pbr/art/terrains/PbrMatTest.ter";
+      castShadows = "1";
+      squareSize = "1";
+      baseTexSize = "1024";
+      baseTexFormat = "DDS";
+      lightMapSize = "256";
+      screenError = "16";
+      ignoreZodiacs = "0";
+      position = "-128 -128 -512";
       rotation = "1 0 0 0";
       canSave = "1";
       canSaveDynamicFields = "1";
