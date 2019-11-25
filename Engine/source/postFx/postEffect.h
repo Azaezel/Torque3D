@@ -83,7 +83,7 @@ public:
 
    enum
    {
-      NumTextures = 8,
+      NumTextures = 16,
    };
 
 protected:

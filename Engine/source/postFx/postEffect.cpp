@@ -754,24 +754,13 @@ void PostEffect::_setupConstants( const SceneRenderState *state )
 
       mRTSizeSC = mShader->getShaderConstHandle( "$targetSize" );
       mOneOverRTSizeSC = mShader->getShaderConstHandle( "$oneOverTargetSize" );
-
-      mTexSizeSC[0] = mShader->getShaderConstHandle( "$texSize0" );
-      mTexSizeSC[1] = mShader->getShaderConstHandle( "$texSize1" );
-      mTexSizeSC[2] = mShader->getShaderConstHandle( "$texSize2" );
-      mTexSizeSC[3] = mShader->getShaderConstHandle( "$texSize3" );
-      mTexSizeSC[4] = mShader->getShaderConstHandle( "$texSize4" );
-      mTexSizeSC[5] = mShader->getShaderConstHandle( "$texSize5" );
-      mTexSizeSC[6] = mShader->getShaderConstHandle( "$texSize6" );
-      mTexSizeSC[7] = mShader->getShaderConstHandle( "$texSize7" );
-
-      mRenderTargetParamsSC[0] = mShader->getShaderConstHandle( "$rtParams0" );
-      mRenderTargetParamsSC[1] = mShader->getShaderConstHandle( "$rtParams1" );
-      mRenderTargetParamsSC[2] = mShader->getShaderConstHandle( "$rtParams2" );
-      mRenderTargetParamsSC[3] = mShader->getShaderConstHandle( "$rtParams3" );
-      mRenderTargetParamsSC[4] = mShader->getShaderConstHandle( "$rtParams4" );
-      mRenderTargetParamsSC[5] = mShader->getShaderConstHandle( "$rtParams5" );
-      mRenderTargetParamsSC[6] = mShader->getShaderConstHandle( "$rtParams6" );
-      mRenderTargetParamsSC[7] = mShader->getShaderConstHandle( "$rtParams7" );
+      for (U32 i = 0; i < NumTextures; i++)
+      {
+         String texSize = String::ToString("$texSize%i",i);
+         mTexSizeSC[i] = mShader->getShaderConstHandle(texSize.c_str());
+         String rtParams = String::ToString("$rtParams%i", i);
+         mRenderTargetParamsSC[i] = mShader->getShaderConstHandle(rtParams.c_str());
+      }
 
       //mViewportSC = shader->getShaderConstHandle( "$viewport" );
 
