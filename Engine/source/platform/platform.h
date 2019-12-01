@@ -346,6 +346,9 @@ namespace Platform
    // Web page launch function:
    bool openWebBrowser( const char* webAddress );
 
+   // native editor launch function:
+   bool editFile(const char* fileLoc);
+
    // display Splash Window
    bool displaySplashWindow( String path );
 

@@ -517,73 +517,50 @@ F32 Platform::getRandom()
 /// @return true if browser successfully spawned
 bool Platform::openWebBrowser( const char* webAddress )
 {
-   static bool sHaveKey = false;
-   static wchar_t sWebKey[512];
-   char utf8WebKey[512];
-
-   {
-      HKEY regKey;
-      DWORD size = sizeof( sWebKey );
-
-      if ( RegOpenKeyEx( HKEY_CLASSES_ROOT, dT("\\http\\shell\\open\\command"), 0, KEY_QUERY_VALUE, &regKey ) != ERROR_SUCCESS )
-      {
-         Con::errorf( ConsoleLogEntry::General, "Platform::openWebBrowser - Failed to open the HKCR\\http registry key!!!");
-         return( false );
+   
+      int nRet = (int)ShellExecute(NULL, TEXT("open"), String(webAddress).utf16(), NULL, NULL, SW_SHOWNORMAL);
+      if (nRet <= 32) {
+         DWORD dw = GetLastError();
+         wchar_t szMsg[250];
+         FormatMessage(
+            FORMAT_MESSAGE_FROM_SYSTEM,
+            0, dw, 0,
+            szMsg, sizeof((const wchar_t*)szMsg),
+            NULL
+         );
+         Con::errorf(ConsoleLogEntry::General, "Platform::openWebBrowser - Failed to open %s due to %s", webAddress, String(szMsg).c_str());
       }
+      
+   return( true );
+}
 
-      if ( RegQueryValueEx( regKey, dT(""), NULL, NULL, (U8 *)sWebKey, &size ) != ERROR_SUCCESS ) 
-      {
-         Con::errorf( ConsoleLogEntry::General, "Platform::openWebBrowser - Failed to query the open command registry key!!!" );
-         return( false );
-      }
+bool Platform::editFile(const char* _fileLoc)
+{
+   char fullPathBuffer[1024];
+   Platform::makeFullPathName(_fileLoc, fullPathBuffer, sizeof(fullPathBuffer));
+   String fileLoc = String(fullPathBuffer);
+   fileLoc.replace(String("/"), String("\\")).c_str();
 
-      RegCloseKey( regKey );
-      sHaveKey = true;
-
-      convertUTF16toUTF8(sWebKey,utf8WebKey);
-
-#ifdef UNICODE
-      char *p = dStrstr((const char *)utf8WebKey, "%1"); 
-#else
-      char *p = strstr( (const char *) sWebKey  , "%1"); 
-#endif
-      if (p) *p = 0; 
-
+   int nRet = (int)ShellExecute(NULL, TEXT("edit"), fileLoc.utf16(), NULL, NULL, SW_SHOWNORMAL);
+   if (nRet <= 32) {
+      DWORD dw = GetLastError();
+      wchar_t szMsg[250];
+      FormatMessage(
+         FORMAT_MESSAGE_FROM_SYSTEM,
+         0, dw, 0,
+         szMsg, sizeof(szMsg),
+         NULL
+      );
+      Con::errorf(ConsoleLogEntry::General, "Platform::editFile(%s) - Failed: %s", fileLoc.c_str(), String(szMsg).c_str());
    }
 
-   STARTUPINFO si;
-   dMemset( &si, 0, sizeof( si ) );
-   si.cb = sizeof( si );
+   return(true);
+}
 
-   char buf[1024];
-#ifdef UNICODE
-   dSprintf( buf, sizeof( buf ), "%s %s", utf8WebKey, webAddress );   
-   UTF16 b[1024];
-   convertUTF8toUTF16((UTF8 *)buf, b);
-#else
-   dSprintf( buf, sizeof( buf ), "%s %s", sWebKey, webAddress );   
-#endif
-
-   //Con::errorf( ConsoleLogEntry::General, "** Web browser command = %s **", buf );
-
-   PROCESS_INFORMATION pi;
-   dMemset( &pi, 0, sizeof( pi ) );
-   CreateProcess( NULL,
-#ifdef UNICODE
-      b,
-#else
-      buf, 
-#endif
-      NULL,
-      NULL,
-      false,
-      CREATE_NEW_CONSOLE | CREATE_NEW_PROCESS_GROUP,
-      NULL,
-      NULL,
-      &si,
-      &pi );
-
-   return( true );
+DefineEngineFunction(editFile, void, (const char* fileLoc), ,
+   "")
+{
+   Platform::editFile(fileLoc);
 }
 
 //--------------------------------------
