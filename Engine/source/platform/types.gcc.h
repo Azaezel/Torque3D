@@ -29,17 +29,6 @@
 
 
 //--------------------------------------
-// Types
-#if defined(TORQUE_X86)
-typedef signed long long    S64;
-typedef unsigned long long  U64;
-#else
-typedef signed long    S64;
-typedef unsigned long  U64;
-#endif
-
-
-//--------------------------------------
 // Compiler Version
 #define TORQUE_COMPILER_GCC (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
 
@@ -64,40 +53,34 @@ typedef unsigned long  U64;
 #  define TORQUE_OS_STRING "Win64"
 #  define TORQUE_OS_WIN
 #  define TORQUE_OS_WIN64
-#  include "platform/types.win.h"
 #elif defined(__WIN32__) || defined(_WIN32)
 #  define TORQUE_OS_STRING "Win32"
 #  define TORQUE_OS_WIN
 #  define TORQUE_OS_WIN32
 #  define TORQUE_SUPPORTS_NASM
 #  define TORQUE_SUPPORTS_GCC_INLINE_X86_ASM
-#  include "platform/types.win.h"
 
 #elif defined(linux) || defined(LINUX)
 #  define TORQUE_OS_STRING "Linux"
 #  define TORQUE_OS_LINUX
 //#  define TORQUE_SUPPORTS_NASM
 //#  define TORQUE_SUPPORTS_GCC_INLINE_X86_ASM
-#  include "platform/types.posix.h"
 
 #elif defined(__OpenBSD__)
 #  define TORQUE_OS_STRING "OpenBSD"
 #  define TORQUE_OS_OPENBSD
 #  define TORQUE_SUPPORTS_NASM
 #  define TORQUE_SUPPORTS_GCC_INLINE_X86_ASM
-#  include "platform/types.posix.h"
 
 #elif defined(__FreeBSD__)
 #  define TORQUE_OS_STRING "FreeBSD"
 #  define TORQUE_OS_FREEBSD
 #  define TORQUE_SUPPORTS_NASM
 #  define TORQUE_SUPPORTS_GCC_INLINE_X86_ASM
-#  include "platform/types.posix.h"
 
 #elif defined(__APPLE__)
 #  define TORQUE_OS_STRING "MacOS X"
 #  define TORQUE_OS_MAC
-#  include "platform/types.mac.h"
 #  if defined(i386)
 // Disabling ASM on XCode for shared library build code relocation issues
 // This could be reconfigured for static builds, though minimal impact

@@ -35,7 +35,6 @@
 const F32 TypeTraits< F32 >::MIN = - F32_MAX;
 const F32 TypeTraits< F32 >::MAX = F32_MAX;
 const F32 TypeTraits< F32 >::ZERO = 0;
-const F32 Float_Inf = std::numeric_limits< F32 >::infinity();
 
 // The tools prefer to allow the CPU time to process
 #ifndef TORQUE_TOOLS

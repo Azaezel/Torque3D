@@ -129,11 +129,14 @@ class Vector
    void pop_front();
    void pop_back();
 
-   T& operator[](U32);
-   const T& operator[](U32) const;
+   T& operator[](dsize_t);
+   const T& operator[](dsize_t) const;
 
-   T& operator[](S32 i)              { return operator[](U32(i)); }
-   const T& operator[](S32 i ) const { return operator[](U32(i)); }
+   T& operator[](U32 i) { return operator[](dsize_t(i)); }
+   const T& operator[](U32 i) const { return operator[](dsize_t(i)); }
+
+   T& operator[](S32 i)              { return operator[](dsize_t(i)); }
+   const T& operator[](S32 i ) const { return operator[](dsize_t(i)); }
 
    void reserve(U32);
    U32 capacity() const;
@@ -682,13 +685,13 @@ template<class T> inline void Vector<T>::pop_back()
    decrement();
 }
 
-template<class T> inline T& Vector<T>::operator[](U32 index)
+template<class T> inline T& Vector<T>::operator[](dsize_t index)
 {
    AssertFatal(index < mElementCount, avar("Vector<T>::operator[%i/%i] - out of bounds array access!", index, mElementCount));
    return mArray[index];
 }
 
-template<class T> inline const T& Vector<T>::operator[](U32 index) const
+template<class T> inline const T& Vector<T>::operator[](dsize_t index) const
 {
    AssertFatal(index < mElementCount, avar("Vector<T>::operator[%i/%i] - out of bounds array access!", index, mElementCount));
    return mArray[index];

@@ -27,11 +27,6 @@
 // For more information on VisualC++ predefined macros
 // http://support.microsoft.com/default.aspx?scid=kb;EN-US;q65472
 
-//--------------------------------------
-// Types
-typedef signed _int64   S64;
-typedef unsigned _int64 U64;
-
 // The types.h version of TORQUE_UNUSED no longer works for recent versions of MSVC.
 // Since it appears that MS has made this impossible to do in a zero-overhead way,
 // just turn the warning off in release builds.
@@ -63,12 +58,10 @@ typedef unsigned _int64 U64;
 #  define TORQUE_OS_STRING "Win32"
 #  define TORQUE_OS_WIN
 #  define TORQUE_OS_WIN32
-#  include "platform/types.win.h"
 #elif defined( _WIN64 )
 #  define TORQUE_OS_STRING "Win64"
 #  define TORQUE_OS_WIN
 #  define TORQUE_OS_WIN64
-#  include "platform/types.win.h"
 #else 
 #  error "VC: Unsupported Operating System"
 #endif
@@ -90,10 +83,6 @@ typedef unsigned _int64 U64;
 #endif
 #else
 #  error "VC: Unsupported Target CPU"
-#endif
-
-#ifndef FN_CDECL
-#  define FN_CDECL __cdecl            ///< Calling convention
 #endif
 
 #if _MSC_VER < 1700

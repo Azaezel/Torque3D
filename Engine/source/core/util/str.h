@@ -156,6 +156,7 @@ public:
 
    StringChar operator []( U32 i ) const { return c_str()[i]; }
    StringChar operator []( S32 i ) const { return c_str()[i]; }
+   StringChar operator []( dsize_t i ) const { return c_str()[i]; }
 
    bool operator==(const String &str) const;
    bool operator!=(const String &str) const { return !(*this == str); }

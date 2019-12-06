@@ -1089,8 +1089,8 @@ void DInputDevice::rumble(F32 x, F32 y)
    }
 
    // Clamp the input floats to [0 - 1]
-   x = max(0, min(1, x));
-   y = max(0, min(1, y));
+   x = mClamp(x,0,1);
+   y = mClamp(y, 0, 1);
 
    if ( 1 == mNumForceFeedbackAxes )
    {

@@ -1862,7 +1862,7 @@ bool GuiTreeViewCtrl::buildIconTable(const char * icons)
       while( *pos && *pos != ':' )
          pos ++;
       
-      const U32 len = pos - start;
+      const dsize_t len = pos - start;
       if( len )
       {
          dStrncpy( buf, start, getMin( sizeof( buf ) / sizeof( buf[ 0 ] ) - 1, len ) );

@@ -388,7 +388,7 @@ U32 Win32File::calculateChecksum()
       return 0;
 
    U64 fileSize = getSize();
-   U32 bufSize = 1024 * 1024 * 4; // 4MB
+   U64 bufSize = 1024 * 1024 * 4; // 4MB
    FrameTemp<U8> buf( bufSize );
    U32 crc = CRC::INITIAL_CRC_VALUE;
 

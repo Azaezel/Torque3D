@@ -91,12 +91,12 @@ class FixedSizeVector
          return mArray[ size() - 1 ];
       }
 
-      const T& operator []( U32 index ) const
+      const T& operator []( dsize_t index ) const
       {
          AssertFatal( index <= size(), "FixedSizeVector::operator[] - Index out of range" );
          return mArray[ index ];
       }
-      T& operator []( U32 index )
+      T& operator []( dsize_t index )
       {
          AssertFatal( index <= size(), "FixedSizeVector::operator[] - Index out of range" );
          return mArray[ index ];

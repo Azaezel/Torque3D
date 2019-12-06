@@ -452,7 +452,7 @@ StringTableEntry Platform::makeRelativePathName(const char *path, const char *to
    }
    else if( to[ dStrlen( to ) - 1 ] != '/' )
    {
-      U32 length = getMin( (U32)dStrlen( to ), sizeof( buffer ) - 2 );
+      dsize_t length = getMin( dStrlen( to ), dsize_t(sizeof( buffer ) - 2) );
       dMemcpy( buffer, to, length );
       buffer[ length ] = '/';
       buffer[ length + 1 ] = '\0';

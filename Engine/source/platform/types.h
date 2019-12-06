@@ -23,27 +23,30 @@
 #ifndef _TORQUE_TYPES_H_
 #define _TORQUE_TYPES_H_
 
-#if (defined _MSC_VER) && (_MSC_VER <= 1500)
-#include "platformWin32/stdint.h"
-#else
-#include <stdint.h>
-#endif
+#include <cstdint>
+#include <cstddef>
+#include <limits>
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //-----------------------------------------Basic Types--------------------------------------------------//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-typedef signed char        S8;      ///< Compiler independent Signed Char
-typedef unsigned char      U8;      ///< Compiler independent Unsigned Char
+typedef std::int8_t        S8;      ///< Compiler independent Signed Char
+typedef std::uint8_t       U8;      ///< Compiler independent Unsigned Char
 
-typedef signed short       S16;     ///< Compiler independent Signed 16-bit short
-typedef unsigned short     U16;     ///< Compiler independent Unsigned 16-bit short
+typedef std::int16_t       S16;     ///< Compiler independent Signed 16-bit short
+typedef std::uint16_t      U16;     ///< Compiler independent Unsigned 16-bit short
 
-typedef signed int         S32;     ///< Compiler independent Signed 32-bit integer
-typedef unsigned int       U32;     ///< Compiler independent Unsigned 32-bit integer
+typedef std::int32_t       S32;     ///< Compiler independent Signed 32-bit integer
+typedef std::uint32_t      U32;     ///< Compiler independent Unsigned 32-bit integer
 
 typedef float              F32;     ///< Compiler independent 32-bit float
 typedef double             F64;     ///< Compiler independent 64-bit float
+
+typedef std::int64_t       S64;
+typedef std::uint64_t      U64;
+
+typedef std::size_t        dsize_t;
 
 struct EmptyType {};                ///< "Null" type used by templates
 
@@ -53,19 +56,15 @@ struct EmptyType {};                ///< "Null" type used by templates
 //----------------------------------------String Types--------------------------------------------------//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-typedef char           UTF8;        ///< Compiler independent 8  bit Unicode encoded character
+typedef char           UTF8;        ///< Compiler independent 8 bit Unicode encoded character
 
-#if defined(_MSC_VER) && defined(__clang__)
-// Clang's MSVC compatibility mode doesn't currently support /Zc:wchar_t-,
-// which we rely on to avoid type conversion errors when calling system
-// APIs when UTF16 is defined as unsigned short.  So, just define UTF16
-// as wchar_t instead since it's always a 2 byte unsigned on windows anyway.
+#if defined(_MSC_VER)
 typedef wchar_t        UTF16;
 #else
-typedef unsigned short UTF16;       ///< Compiler independent 16 bit Unicode encoded character
+typedef std::uint16_t UTF16;       ///< Compiler independent 16 bit Unicode encoded character
 #endif
 
-typedef unsigned int   UTF32;       ///< Compiler independent 32 bit Unicode encoded character
+typedef std::uint32_t   UTF32;       ///< Compiler independent 32 bit Unicode encoded character
 
 typedef const char* StringTableEntry;
 
@@ -74,34 +73,38 @@ typedef const char* StringTableEntry;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define __EQUAL_CONST_F F32(0.000001)                                  ///< Constant float epsilon used for F32 comparisons
 
-extern const F32 Float_Inf;
-static const F32 Float_One  = F32(1.0);                           ///< Constant float 1.0
-static const F32 Float_Half = F32(0.5);                           ///< Constant float 0.5
-static const F32 Float_Zero = F32(0.0);                           ///< Constant float 0.0
-static const F32 Float_Pi   = F32(3.14159265358979323846);        ///< Constant float PI
-static const F32 Float_2Pi  = F32(2.0 * 3.14159265358979323846);  ///< Constant float 2*PI
-static const F32 Float_InversePi = F32(1.0 / 3.14159265358979323846); ///< Constant float 1 / PI
-static const F32 Float_HalfPi = F32(0.5 * 3.14159265358979323846);    ///< Constant float 1/2 * PI
-static const F32 Float_2InversePi = F32(2.0 / 3.14159265358979323846);///< Constant float 2 / PI
-static const F32 Float_Inverse2Pi = F32(0.5 / 3.14159265358979323846);///< Constant float 0.5 / PI
+constexpr F32 Float_Inf = std::numeric_limits<F32>::infinity();
+constexpr F32 Float_One  = F32(1.0);                           ///< Constant float 1.0
+constexpr F32 Float_Half = F32(0.5);                           ///< Constant float 0.5
+constexpr F32 Float_Zero = F32(0.0);                           ///< Constant float 0.0
+constexpr F32 Float_Pi   = F32(3.14159265358979323846);        ///< Constant float PI
+constexpr F32 Float_2Pi  = F32(2.0 * 3.14159265358979323846);  ///< Constant float 2*PI
+constexpr F32 Float_InversePi = F32(1.0 / 3.14159265358979323846); ///< Constant float 1 / PI
+constexpr F32 Float_HalfPi = F32(0.5 * 3.14159265358979323846);    ///< Constant float 1/2 * PI
+constexpr F32 Float_2InversePi = F32(2.0 / 3.14159265358979323846);///< Constant float 2 / PI
+constexpr F32 Float_Inverse2Pi = F32(0.5 / 3.14159265358979323846);///< Constant float 0.5 / PI
 
-static const F32 Float_Sqrt2 = F32(1.41421356237309504880f);          ///< Constant float sqrt(2)
-static const F32 Float_SqrtHalf = F32(0.7071067811865475244008443f);  ///< Constant float sqrt(0.5)
+constexpr F32 Float_Sqrt2 = F32(1.41421356237309504880f);          ///< Constant float sqrt(2)
+constexpr F32 Float_SqrtHalf = F32(0.7071067811865475244008443f);  ///< Constant float sqrt(0.5)
 
-static const S8  S8_MIN  = S8(-128);                              ///< Constant Min Limit S8
-static const S8  S8_MAX  = S8(127);                               ///< Constant Max Limit S8
-static const U8  U8_MAX  = U8(255);                               ///< Constant Max Limit U8
+constexpr S8 S8_MIN  = std::numeric_limits<S8>::min();                              ///< Constant Min Limit S8
+constexpr S8 S8_MAX  = std::numeric_limits<S8>::max();                               ///< Constant Max Limit S8
+constexpr U8 U8_MAX  = std::numeric_limits<U8>::max();                               ///< Constant Max Limit U8
 
-static const S16 S16_MIN = S16(-32768);                           ///< Constant Min Limit S16
-static const S16 S16_MAX = S16(32767);                            ///< Constant Max Limit S16
-static const U16 U16_MAX = U16(65535);                            ///< Constant Max Limit U16
+constexpr S16 S16_MIN = std::numeric_limits<S16>::min();                           ///< Constant Min Limit S16
+constexpr S16 S16_MAX = std::numeric_limits<S16>::max();                           ///< Constant Max Limit S16
+constexpr U16 U16_MAX = std::numeric_limits<U16>::max();                            ///< Constant Max Limit U16
 
-static const S32 S32_MIN = S32(-2147483647 - 1);                  ///< Constant Min Limit S32
-static const S32 S32_MAX = S32(2147483647);                       ///< Constant Max Limit S32
-static const U32 U32_MAX = U32(0xffffffff);                       ///< Constant Max Limit U32
+constexpr S32 S32_MIN = std::numeric_limits<S32>::min();                       ///< Constant Min Limit S32
+constexpr S32 S32_MAX = std::numeric_limits<S32>::max();                       ///< Constant Max Limit S32
+constexpr U32 U32_MAX = std::numeric_limits<U32>::max();                       ///< Constant Max Limit U32
 
-static const F32 F32_MIN = F32(1.175494351e-38F);                 ///< Constant Min Limit F32
-static const F32 F32_MAX = F32(3.402823466e+38F);                 ///< Constant Max Limit F32
+constexpr S64 S64_MIN = std::numeric_limits<S64>::min();                      ///< Constant Min Limit S64
+constexpr S64 S64_MAX = std::numeric_limits<S64>::max();                      ///< Constant Max Limit S64
+constexpr U64 U64_MAX = std::numeric_limits<U64>::max();                       ///< Constant Max Limit U64
+
+constexpr F32 F32_MIN = std::numeric_limits<F32>::min();                 ///< Constant Min Limit F32
+constexpr F32 F32_MAX = std::numeric_limits<F32>::max();                 ///< Constant Max Limit F32
 
 // define all the variants of Offset that we might use
 #define _Offset_Normal(x, cls) ((dsize_t)((const char *)&(((cls *)1)->x)-(const char *)1))
@@ -111,14 +114,8 @@ static const F32 F32_MAX = F32(3.402823466e+38F);                 ///< Constant 
 //--------------------------------------
 // Identify the compiler being used
 
-// PC-lint
-#if defined(_lint)
-#  include "platform/types.lint.h"
-// Metrowerks CodeWarrior
-#elif defined(__MWERKS__)
-#  include "platform/types.codewarrior.h"
 // Microsoft Visual C++/Visual.NET
-#elif defined(_MSC_VER)
+#if defined(_MSC_VER)
 #  include "platform/types.visualc.h"
 // GNU GCC
 #elif defined(__GNUC__)
@@ -128,10 +125,12 @@ static const F32 F32_MAX = F32(3.402823466e+38F);                 ///< Constant 
 #endif
 
 /// Integral type matching the host's memory address width.
-#ifdef TORQUE_CPU_X64
-   typedef U64 MEM_ADDRESS;
+typedef std::uintptr_t MEM_ADDRESS;
+
+#ifdef _MSC_VER
+#define ALIGNAS(x) __declspec( align( x ) ) 
 #else
-   typedef U32 MEM_ADDRESS;
+#define ALIGNAS(x)  __attribute__ ((aligned( x )))
 #endif
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -180,6 +179,7 @@ DeclareTemplatizedMinMax( U8 )
 DeclareTemplatizedMinMax( S8 )
 DeclareTemplatizedMinMax( F32 )
 DeclareTemplatizedMinMax( F64 )
+DeclareTemplatizedMinMax( dsize_t )
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //------------------------------------------------FOURCC------------------------------------------------//
@@ -199,8 +199,24 @@ DeclareTemplatizedMinMax( F64 )
 
 #if defined(TORQUE_OS_WIN)
 #define STDCALL __stdcall
+#define FN_CDECL __cdecl
+struct FileTime
+{
+   U32 v1;
+   U32 v2;
+};
+#elif defined(TORQUE_OS_MAC)
+#define STDCALL
+#define FN_CDECL
+typedef U64 FileTime;
 #else
 #define STDCALL
+#define FN_CDECL
+typedef S32 FileTime;
+#endif
+
+#ifndef NULL
+#  define NULL 0
 #endif
 
 #endif //_TORQUE_TYPES_H_
