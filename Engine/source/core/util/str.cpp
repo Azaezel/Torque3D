@@ -324,7 +324,7 @@ class String::StringData : protected StringDataImpl
          return ( mLength * sizeof( UTF16 ) );
       }
 
-      UTF8 operator []( dsize_t index ) const
+      UTF8 operator []( U32 index ) const
       {
          AssertFatal( index < mLength, "String::StringData::operator []() - index out of range" );
          return mData[ index ];

@@ -113,7 +113,7 @@ class EngineEnumTable
       U32 getNumValues() const { return mNumValues; }
       
       /// Get the enum value at the given index.
-      const Value& operator []( dsize_t index ) const
+      const Value& operator []( U32 index ) const
       {
          AssertFatal( index < getNumValues(), "" );
          return mValues[ index ];
@@ -189,7 +189,7 @@ class EngineFieldTable
       U32 getNumFields() const { return mNumFields; }
       
       ///
-      const Field& operator []( dsize_t index ) const
+      const Field& operator []( U32 index ) const
       {
          AssertFatal( index <= getNumFields(), "EngineFieldTable - index out of range" );
          return mFields[ index ];
@@ -282,7 +282,7 @@ class EnginePropertyTable
       U32 getNumProperties() const { return mNumProperties; }
       
       ///
-      const Property& operator [](dsize_t index ) const
+      const Property& operator []( U32 index ) const
       {
          AssertFatal( index <= getNumProperties(), "EnginePropertyTable - index out of range" );
          return mProperties[ index ];
@@ -321,7 +321,7 @@ class EngineArgumentTypeTable
       U32 getNumArguments() const { return mNumArguments; }
       
       /// Get the argument type at the given index.
-      const EngineTypeInfo* operator []( dsize_t index ) const
+      const EngineTypeInfo* operator []( U32 index ) const
       {
          AssertFatal( index <= getNumArguments(), "EngineArgumentTypeTable - Index out of range!" );
          return mArgumentTypes[ index ];

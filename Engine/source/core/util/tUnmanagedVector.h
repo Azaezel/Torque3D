@@ -80,12 +80,12 @@ class UnmanagedVector
          return mArray[ mCount - 1 ];
       }
 
-      const T& operator []( dsize_t index ) const
+      const T& operator []( U32 index ) const
       {
          AssertFatal( index <= size(), "UnmanagedVector::operator[] - Index out of range" );
          return mArray[ index ];
       }
-      T& operator []( dsize_t index )
+      T& operator []( U32 index )
       {
          AssertFatal( index <= size(), "UnmanagedVector::operator[] - Index out of range" );
          return mArray[ index ];
