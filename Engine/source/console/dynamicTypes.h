@@ -52,7 +52,7 @@ class ConsoleBaseType
       S32 mTypeID;
             
       /// Size of a single data value point.
-      dsize_t mTypeSize;
+      S32 mTypeSize;
       
       /// Name of this console type (TypeXXX).
       StringTableEntry mTypeName;
