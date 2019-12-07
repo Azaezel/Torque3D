@@ -1778,6 +1778,7 @@ AFTER_MODULE_INIT( Sim )
 // Don't manage our own memory
 void* dMalloc_r(dsize_t in_size, const char* fileName, const dsize_t line)
 {
+   AssertWarn(in_size < U32_MAX, avar("dMalloc(%d/%d) seems extreem. Memory leak?", in_size, U32_MAX));
    return malloc(in_size);
 }
 
@@ -1788,6 +1789,7 @@ void dFree(void* in_pFree)
 
 void* dRealloc_r(void* in_pResize, dsize_t in_size, const char* fileName, const dsize_t line)
 {
+   AssertWarn(in_size < U32_MAX, avar("dRealloc(%d/%d) seems extreem. Memory leak?", in_size, U32_MAX));
    return realloc(in_pResize,in_size);
 }
 

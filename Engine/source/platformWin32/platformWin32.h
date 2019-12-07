@@ -51,8 +51,6 @@
 #pragma warning(disable: 4996) // turn off "deprecation" warnings
 #endif
 
-#define NOMINMAX
-
 // Hack to get a correct HWND instead of using global state.
 extern HWND getWin32WindowHandle();
 

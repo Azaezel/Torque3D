@@ -125,9 +125,9 @@ inline char *dStrncpy(char *dst, const char *src, dsize_t len)
    return strncpy(dst,src,len);
 }   
 
-inline dsize_t dStrlen(const char *str)
+inline U32 dStrlen(const char *str)
 {
-   return strlen(str);
+   return U32(strlen(str));
 }   
 
 inline char *dStrchr(char *str, S32 c)
