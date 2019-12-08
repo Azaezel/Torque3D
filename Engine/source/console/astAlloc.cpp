@@ -238,7 +238,7 @@ StrConstNode *StrConstNode::alloc(S32 lineNumber, char *str, bool tag, bool doc)
    StrConstNode *ret = (StrConstNode *)consoleAlloc(sizeof(StrConstNode));
    constructInPlace(ret);
    ret->dbgLineNumber = lineNumber;
-   dsize_t retStrLen = dStrlen(str) + 1;
+   U32 retStrLen = dStrlen(str) + 1;
    ret->str = (char *)consoleAlloc(retStrLen);
    ret->tag = tag;
    ret->doc = doc;
