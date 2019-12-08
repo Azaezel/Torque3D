@@ -647,7 +647,7 @@ static void _printf(ConsoleLogEntry::Level level, ConsoleLogEntry::Type type, co
             entry.mLevel  = level;
             entry.mType   = type;
 #ifndef TORQUE_SHIPPING // this is equivalent to a memory leak, turn it off in ship build            
-            dsize_t logStringLen = dStrlen(pos) + 1;
+            U32 logStringLen = dStrlen(pos) + 1;
             entry.mString = (const char *)consoleLogChunker.alloc(logStringLen);
             dStrcpy(const_cast<char*>(entry.mString), pos, logStringLen);
             
@@ -1489,7 +1489,7 @@ ConsoleValueRef evaluatef(const char* string, ...)
 // Internal execute for global function which does not save the stack
 ConsoleValueRef _internalExecute(S32 argc, ConsoleValueRef argv[])
 {
-   const char** argv_str = static_cast<const char**>(malloc((argc - 1) * sizeof(char *)));
+   const char** argv_str = static_cast<const char**>(malloc((dsize_t(argc) - 1) * sizeof(char *)));
    for (int i = 0; i < argc - 1; i++)
    {
       argv_str[i] = argv[i + 1];
@@ -1572,7 +1572,7 @@ ConsoleValueRef _internalExecute(SimObject *object, S32 argc, ConsoleValueRef ar
       }
    }
 
-   const char** argv_str = static_cast<const char**>(malloc((argc - 2) * sizeof(char *)));
+   const char** argv_str = static_cast<const char**>(malloc((dsize_t(argc) - 2) * sizeof(char *)));
    for (int i = 0; i < argc - 2; i++)
    {
       argv_str[i] = argv[i + 2];

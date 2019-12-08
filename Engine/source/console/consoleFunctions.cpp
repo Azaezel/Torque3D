@@ -567,7 +567,7 @@ DefineEngineFunction( stripChars, const char*, ( const char* str, const char* ch
    U32 pos = dStrcspn( ret, chars );
    while ( pos < dStrlen( ret ) )
    {
-      dStrcpy( ret + pos, ret + pos + 1, len - pos );
+      dStrcpy( ret + pos, ret + pos + 1, dsize_t(len - pos) );
       pos = dStrcspn( ret, chars );
    }
    return( ret );
@@ -585,7 +585,7 @@ DefineEngineFunction( strlwr, const char*, ( const char* str ),,
    "@see strupr\n"
    "@ingroup Strings" )
 {
-   dsize_t retLen = dStrlen(str) + 1;
+   U32 retLen = dStrlen(str) + 1;
    char *ret = Con::getReturnBuffer(retLen);
    dStrcpy(ret, str, retLen);
    return dStrlwr(ret);
@@ -603,7 +603,7 @@ DefineEngineFunction( strupr, const char*, ( const char* str ),,
    "@see strlwr\n"
    "@ingroup Strings" )
 {
-   dsize_t retLen = dStrlen(str) + 1;
+   U32 retLen = dStrlen(str) + 1;
    char *ret = Con::getReturnBuffer(retLen);
    dStrcpy(ret, str, retLen);
    return dStrupr(ret);
