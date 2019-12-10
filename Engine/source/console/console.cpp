@@ -1489,7 +1489,7 @@ ConsoleValueRef evaluatef(const char* string, ...)
 // Internal execute for global function which does not save the stack
 ConsoleValueRef _internalExecute(S32 argc, ConsoleValueRef argv[])
 {
-   const char** argv_str = static_cast<const char**>(malloc((dsize_t(argc) - 1) * sizeof(char *)));
+   const char** argv_str = static_cast<const char**>(malloc((dsize_t(argc) + 1) * sizeof(char *)));
    for (int i = 0; i < argc - 1; i++)
    {
       argv_str[i] = argv[i + 1];
@@ -1572,7 +1572,7 @@ ConsoleValueRef _internalExecute(SimObject *object, S32 argc, ConsoleValueRef ar
       }
    }
 
-   const char** argv_str = static_cast<const char**>(malloc((dsize_t(argc) - 2) * sizeof(char *)));
+   const char** argv_str = static_cast<const char**>(malloc((dsize_t(argc) + 2) * sizeof(char *)));
    for (int i = 0; i < argc - 2; i++)
    {
       argv_str[i] = argv[i + 2];

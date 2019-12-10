@@ -663,7 +663,7 @@ public:
       T::initPersistFields();
       T::consoleInit();
 
-      EnginePropertyTable::Property* props = new EnginePropertyTable::Property[sg_tempFieldList.size()];
+      EnginePropertyTable::Property* props = new EnginePropertyTable::Property[dsize_t(sg_tempFieldList.size())];
 
       for (int i = 0; i < sg_tempFieldList.size(); ++i)
       {
