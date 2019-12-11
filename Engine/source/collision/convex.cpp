@@ -53,6 +53,9 @@ F32 sqrDistanceEdges(const Point3F& start0,
 CollisionState::CollisionState()
 {
    mLista = mListb = 0;
+   mA = NULL;
+   mB = NULL;
+   mDist = F32_MAX;
 }
 
 CollisionState::~CollisionState()
@@ -112,7 +115,7 @@ bool ConvexFeature::collide(ConvexFeature& cf,CollisionList* cList, F32 tol)
       //  than the object we're colliding against.
       if (storeCount != cList->getCount()) 
       {
-         Collision &col = (*cList)[cList->getCount() - 1];
+         Collision &col = (*cList)[dsize_t(cList->getCount()) - 1];
          col.material = cf.material;
          col.object   = cf.object;
       }
