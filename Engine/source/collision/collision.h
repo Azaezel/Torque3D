@@ -62,10 +62,13 @@ struct Collision
    F32 distance;
    
    Collision() :
-      object( NULL ),
-      material( NULL ),
+      object(NULL),
+      material(NULL),
       generateTexCoord(false),
-      texCoord(-1.0f, -1.0f)
+      texCoord(-1.0f, -1.0f),
+      distance(F32_MAX),
+      face(0),
+      faceDot(-1.0f)
    {
    }
 };
@@ -156,7 +159,7 @@ typedef Chunker<BSPNode> BSPTree;
 /// @see Collision
 struct RayInfo : public Collision 
 {
-   RayInfo() : userData( NULL ) {}
+   RayInfo() : userData( NULL ), t(F32_MAX) {}
 
    // The collision struct has object, point, normal & material.
 

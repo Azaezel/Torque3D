@@ -123,6 +123,7 @@ class EngineExport : public StaticEngineObject
          : mExportName( "" ),
            mExportKind( EngineExportKindScope ),
            mExportScope( NULL ),
+           mDocString(""),
            mNextExport( NULL ) {}
 };
 

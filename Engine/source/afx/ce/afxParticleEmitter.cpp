@@ -694,6 +694,7 @@ afxParticleEmitter::afxParticleEmitter()
   n_tpath_points = 0;
   tpath_points = NULL;
   afx_owner = 0;
+  mDataBlock = NULL;
 }
 
 afxParticleEmitter::~afxParticleEmitter()
@@ -1086,6 +1087,7 @@ void afxParticleEmitter::emitParticlesExt(const MatrixF& xfm, const Point3F& poi
 
 afxParticleEmitterVector::afxParticleEmitterVector()
 {
+   mDataBlock = NULL;
 }
 
 afxParticleEmitterVector::~afxParticleEmitterVector()
@@ -1154,6 +1156,7 @@ afxParticleEmitterCone::afxParticleEmitterCone()
   cone_v.set(0,0,1);
   cone_s0.set(0,0,1);
   cone_s1.set(0,0,1);
+  mDataBlock = NULL;
 }
 
 afxParticleEmitterCone::~afxParticleEmitterCone()
@@ -1270,6 +1273,7 @@ afxParticleEmitterPath::afxParticleEmitterPath()
   epath_mults.clear();
   n_epath_points = 0;
   epath_points = NULL;
+  mDataBlock = NULL;
 }
 
 afxParticleEmitterPath::~afxParticleEmitterPath()
@@ -1523,6 +1527,7 @@ afxParticleEmitterDisc::afxParticleEmitterDisc()
 {
   disc_v.set(0,0,1);
   disc_r.set(1,0,0);
+  mDataBlock = NULL;
 }
 
 afxParticleEmitterDisc::~afxParticleEmitterDisc()

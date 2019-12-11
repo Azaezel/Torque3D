@@ -50,6 +50,9 @@ class ConcretePolyList : public AbstractPolyList
       {
          object = NULL;
          material = NULL;
+         vertexStart = 0;
+         vertexCount = 0;
+         surfaceKey = 0;
       }
    };
 

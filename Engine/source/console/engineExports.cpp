@@ -75,7 +75,7 @@ String EngineExport::getFullyQualifiedExportName() const
 //-----------------------------------------------------------------------------
 
 EngineExportScope::EngineExportScope( const char* name, EngineExportScope* scope, const char* docString )
-   : SuperType( name, EngineExportKindScope, scope, docString )
+   : SuperType( name, EngineExportKindScope, scope, docString ), mExports(NULL)
 {
    // Do *NOT* initialize mExports here.  EngineExportScopes should be
    // instantiated globally and by not initializing the field, we allow
