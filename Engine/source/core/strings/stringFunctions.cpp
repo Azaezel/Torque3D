@@ -424,14 +424,14 @@ S32 dStrlcpy(char *dst, const char *src, dsize_t dstSize)
 
    return len;
 #else //TORQUE_OS_MAC
-   S32 srcLen = dStrlen(src);
-   S32 copyLen = srcLen;
+   dsize_t srcLen = dStrlen(src);
+   dsize_t copyLen = srcLen;
 
    //Check for buffer overflow and don't allow it. Warn on debug so we can fix it
    AssertWarn(copyLen < dstSize, "Buffer too small in call to dStrlcpy!");
-   if (srcLen + 1 > dstSize)
+   if (srcLen + dsize_t(1) > dstSize)
    {
-      copyLen = dstSize - 1;
+      copyLen = dstSize - dsize_t(1);
    }
 
    //Copy src and null terminate
