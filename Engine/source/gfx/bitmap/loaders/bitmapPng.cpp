@@ -292,7 +292,7 @@ static bool sReadPNG(Stream &stream, GBitmap *bitmap)
    U8* pBase = (U8*)bitmap->getBits();
    
    for (U32 i = 0; i < height; i++)
-      rowPointers[i] = pBase + (i * rowBytes);
+      rowPointers[i] = pBase + (dsize_t(i) * dsize_t(rowBytes));
 
    // And actually read the image!
    png_read_image(png_ptr, rowPointers);

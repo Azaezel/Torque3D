@@ -234,9 +234,9 @@ static bool sWriteBMP(GBitmap *bitmap, Stream &stream, U32 compressionLevel)
    for (U32 i = 0; i < height; i++)
    {
       const U8* pSrc = bitmap->getAddress(0, i);
-      U8* pDst = pMSUpsideDownBits + (height - i - 1) * width * bytesPP;
+      U8* pDst = pMSUpsideDownBits + dsize_t(height - i - 1) * width * bytesPP;
 
-      dMemcpy(pDst, pSrc, width * bytesPP);
+      dMemcpy(pDst, pSrc, dsize_t(width) * dsize_t(bytesPP));
    }
 
    stream.write(bi.biSizeImage, pMSUpsideDownBits);

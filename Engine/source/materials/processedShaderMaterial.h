@@ -193,7 +193,7 @@ protected:
          mDeclFormat.getDecl();
 
          delete [] mBuffer;
-         mBuffer = new U8[ mInstFormat->getSizeInBytes() * COUNT ];
+         mBuffer = new U8[dsize_t(mInstFormat->getSizeInBytes()) * dsize_t(COUNT) ];
          mCount = -1;
       }
 

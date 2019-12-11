@@ -314,12 +314,12 @@ inline U8* GBitmap::getWritableBits(const U32 in_mipLevel)
 
 inline U8* GBitmap::getAddress(const S32 in_x, const S32 in_y, const U32 mipLevel)
 {
-   return (getWritableBits(mipLevel) + ((in_y * getWidth(mipLevel)) + in_x) * mBytesPerPixel);
+   return (getWritableBits(mipLevel) + ((dsize_t(in_y) * dsize_t(getWidth(mipLevel))) + dsize_t(in_x)) * mBytesPerPixel);
 }
 
 inline const U8* GBitmap::getAddress(const S32 in_x, const S32 in_y, const U32 mipLevel) const
 {
-   return (getBits(mipLevel) + ((in_y * getWidth(mipLevel)) + in_x) * mBytesPerPixel);
+   return (getBits(mipLevel) + ((dsize_t(in_y) * dsize_t(getWidth(mipLevel))) + dsize_t(in_x)) * mBytesPerPixel);
 }
 
 template<class T, dsize_t mapLength>

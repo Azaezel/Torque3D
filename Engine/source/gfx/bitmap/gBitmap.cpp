@@ -263,7 +263,7 @@ void GBitmap::copyRect(const GBitmap *src, const RectI &srcRect, const Point2I &
    {
       dMemcpy(getAddress(dstPt.x, dstPt.y + i, dstMipLevel),
               src->getAddress(srcRect.point.x, srcRect.point.y + i, srcMipLevel),
-              mBytesPerPixel * srcRect.extent.x);
+              dsize_t(mBytesPerPixel) * srcRect.extent.x);
    }
 }
 
@@ -317,8 +317,8 @@ void GBitmap::allocateBitmap(const U32 in_width, const U32 in_height, const bool
 
    if (in_extrudeMipLevels == true) 
    {
-      U32 currWidth  = in_width;
-      U32 currHeight = in_height;
+      dsize_t currWidth  = in_width;
+      dsize_t currHeight = in_height;
 
       do 
       {
@@ -395,8 +395,8 @@ void GBitmap::allocateBitmapWithMips(const U32 in_width, const U32 in_height, co
 
    if (in_numMips != 0)
    {
-      U32 currWidth = in_width;
-      U32 currHeight = in_height;
+      dsize_t currWidth = in_width;
+      dsize_t currHeight = in_height;
 
       do
       {
@@ -470,8 +470,8 @@ void GBitmap::extrudeMipLevels(bool clearBorders)
    {
       for (U32 i = 1; i<mNumMipLevels; i++)
       {
-         U32 width = getWidth(i);
-         U32 height = getHeight(i);
+         dsize_t width = getWidth(i);
+         dsize_t height = getHeight(i);
          if (height<3 || width<3)
             // bmp is all borders at this mip level
             dMemset(getWritableBits(i),0,width*height*mBytesPerPixel);
@@ -487,10 +487,10 @@ void GBitmap::extrudeMipLevels(bool clearBorders)
             {
                // clear last pixel of row N-1 and first pixel of row N
                bytes += width;
-               dMemset(bytes,0,mBytesPerPixel*2);
+               dMemset(bytes,0, dsize_t(mBytesPerPixel)* dsize_t(2));
             }
             // clear last row sans the first pixel
-            dMemset(bytes+2*mBytesPerPixel,0,width-mBytesPerPixel);
+            dMemset(bytes+ dsize_t(2)* dsize_t(mBytesPerPixel),0,width- dsize_t(mBytesPerPixel));
          }
       }
    }
@@ -676,7 +676,7 @@ bool GBitmap::setFormat(GFXFormat fmt)
    for (U32 j=0; j < mNumMipLevels; j++)
    {
       mMipLevelOffsets[j] = offset;
-      offset += getHeight(j) * getWidth(j) * mBytesPerPixel;
+      offset += dsize_t(getHeight(j)) * dsize_t(getWidth(j)) * dsize_t(mBytesPerPixel);
    }
 
    return true;
@@ -1005,7 +1005,7 @@ void GBitmap::fill( const ColorI &rColor )
    // and reduce the total number of memcpy calls.
    //
    dest = getWritableBits() + stride;
-   end = src + ( stride * getHeight() );
+   end = src + (dsize_t(stride) * dsize_t(getHeight()) );
    for ( ; dest != end; dest += stride )
       dMemcpy( dest, src, stride );
 }
@@ -1037,9 +1037,9 @@ GBitmap* GBitmap::createPaddedBitmap() const
       U8*       pDest = (U8*)pReturn->getAddress(0, i);
       const U8* pSrc  = (const U8*)getAddress(0, i);
 
-      dMemcpy(pDest, pSrc, width * mBytesPerPixel);
+      dMemcpy(pDest, pSrc, dsize_t(width) * dsize_t(mBytesPerPixel));
 
-      pDest += width * mBytesPerPixel;
+      pDest += dsize_t(width) * dsize_t(mBytesPerPixel);
       // set the src pixel to the last pixel in the row
       const U8 *pSrcPixel = pDest - mBytesPerPixel; 
 
@@ -1052,7 +1052,7 @@ GBitmap* GBitmap::createPaddedBitmap() const
    {
       U8* pDest = (U8*)pReturn->getAddress(0, i);
       U8* pSrc = (U8*)pReturn->getAddress(0, height-1);
-      dMemcpy(pDest, pSrc, newWidth * mBytesPerPixel);
+      dMemcpy(pDest, pSrc, dsize_t(newWidth) * dsize_t(mBytesPerPixel));
    }
 
    return pReturn;
