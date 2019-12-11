@@ -209,7 +209,7 @@ inline F32 mFmod(const F32 val, const F32 mod)
 
 inline S32 mRound(const F32 val)  
 {  
-   return (S32)floor(val + 0.5f);  
+   return (S32)mFloor(val + 0.5f);
 }  
       
 inline F32 mRound(const F32 val, const S32 n)  
@@ -253,7 +253,7 @@ inline S32 mWrap(S32 val, S32 low, S32 high)
 
 inline F32 mWrapF(F32 val, F32 low, F32 high)
 {
-	F32 t = fmod(val - low, high - low);
+	F32 t = mFmod(val - low, high - low);
 	return t < 0 ? t + high : t + low;
 }
 

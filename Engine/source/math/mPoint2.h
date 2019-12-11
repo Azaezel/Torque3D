@@ -201,7 +201,7 @@ class Point2D
    Point2D();                           ///< Create uninitialized point.
    Point2D(const Point2D&);             ///< Copy constructor
    Point2D(F64 _x, F64 _y);             ///< Create point from coordinates.
-
+   Point2D(Point2F _in);
    //-------------------------------------- Non-math mutators and misc functions
   public:
    void set(F64 _x, F64 _y);            ///< Set point's coordinates.
@@ -716,6 +716,11 @@ inline void Point2D::set(F64 _x, F64 _y)
    y = _y;
 }
 
+inline Point2D::Point2D(Point2F _in)
+{
+   x = F64(_in.x);
+   y = F64(_in.y);
+}
 
 inline void Point2D::setMin(const Point2D& _test)
 {
@@ -915,7 +920,10 @@ inline bool mIsNaN( const Point2F &p )
 /// Return negative if p0p1p2 are clockwise 
 inline F64 mCross(const Point2F &p0, const Point2F &p1, const Point2F &pt2)
 {
-   return (p1.x - p0.x) * (pt2.y - p0.y) - (p1.y - p0.y) * (pt2.x - p0.x);
+   Point2D c0 = Point2D(p0);
+   Point2D c1 = Point2D(p1);
+   Point2D pt = Point2D(pt);
+   return (c1.x - c0.x) * (pt.y - c0.y) - (c1.y - c0.y) * (pt.x - c0.x);
 }
 
 

@@ -141,7 +141,7 @@ bool afxParticleEmitterData::onAdd()
   if (tpaths_string != ST_NULLSTRING) 
   {
     Vector<char*> dataBlocks(__FILE__, __LINE__);
-    dsize_t tokCopyLen = dStrlen(tpaths_string) + 1;
+    U32 tokCopyLen = dStrlen(tpaths_string) + 1;
     char* tokCopy = new char[tokCopyLen];
     dStrcpy(tokCopy, tpaths_string, tokCopyLen);
     
@@ -468,7 +468,7 @@ bool afxParticleEmitterPathData::onAdd()
   if (epaths_string != ST_NULLSTRING) 
   {
     Vector<char*> dataBlocks(__FILE__, __LINE__);
-    dsize_t tokCopyLen = dStrlen(epaths_string) + 1;
+    U32 tokCopyLen = dStrlen(epaths_string) + 1;
     char* tokCopy = new char[tokCopyLen];
     dStrcpy(tokCopy, epaths_string, tokCopyLen);
 
@@ -554,7 +554,7 @@ void afxParticleEmitterPathData::onPerformSubstitutions()
   if (epaths_string != ST_NULLSTRING) 
   {
     Vector<char*> dataBlocks(__FILE__, __LINE__);
-    dsize_t tokCopyLen = dStrlen(epaths_string) + 1;
+    U32 tokCopyLen = dStrlen(epaths_string) + 1;
     char* tokCopy = new char[tokCopyLen];
     dStrcpy(tokCopy, epaths_string, tokCopyLen);
 
