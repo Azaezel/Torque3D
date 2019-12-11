@@ -504,7 +504,7 @@ bool StandardMainLoop::handleCommandLine( S32 argc, const char **argv )
          S32 pathLen = dStrlen( fdd.mFile );
          FrameTemp<char> szPathCopy( pathLen + 1);
 
-         dStrcpy( szPathCopy, fdd.mFile, pathLen + 1 );
+         dStrcpy( szPathCopy, fdd.mFile, dsize_t(pathLen) + dsize_t(1) );
          //forwardslash( szPathCopy );
 
          const char *path = dStrrchr(szPathCopy, '/');
@@ -550,7 +550,7 @@ bool StandardMainLoop::handleCommandLine( S32 argc, const char **argv )
       return false;
 
    U32 size = mainCsStream->getStreamSize();
-   char *script = new char[size + 1];
+   char *script = new char[dsize_t(size) + dsize_t(1)];
    mainCsStream->read(size, script);
 
 #ifdef TORQUE_ENABLE_VFS
