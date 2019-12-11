@@ -215,8 +215,8 @@ S32 dStrnatcasecmp(const nat_char* a, const nat_char* b) {
 
 char *dStrdup_r(const char *src, const char *fileName, dsize_t lineNumber)
 {
-   dsize_t bufferLen = dStrlen(src) + 1;
-   char *buffer = (char *) dMalloc_r(bufferLen, fileName, lineNumber);
+   U32 bufferLen = dStrlen(src) + 1;
+   char *buffer = (char *) dMalloc(bufferLen, fileName, lineNumber);
    dStrcpy(buffer, src, bufferLen);
    return buffer;
 }
@@ -394,15 +394,15 @@ S32 dStrlcat(char *dst, const char *src, dsize_t dstSize)
 
    return len;
 #else //TORQUE_OS_MAC
-   S32 dstLen = dStrlen(dst);
-   S32 srcLen = dStrlen(src);
-   S32 copyLen = srcLen;
+   dsize_t dstLen = strlen(dst);
+   dsize_t srcLen = strlen(src);
+   dsize_t copyLen = srcLen;
 
    //Check for buffer overflow and don't allow it. Warn on debug so we can fix it
    AssertWarn(dstLen + copyLen < dstSize, "Buffer too small in call to dStrlcat!");
-   if (dstLen + copyLen + 1 > dstSize)
+   if (dstLen + copyLen + dsize_t(1) > dstSize)
    {
-      copyLen = dstSize - dstLen - 1;
+      copyLen = dstSize - dstLen - dsize_t(1);
    }
 
    //Copy src after dst and null terminate
