@@ -216,7 +216,7 @@ S32 dStrnatcasecmp(const nat_char* a, const nat_char* b) {
 char *dStrdup_r(const char *src, const char *fileName, dsize_t lineNumber)
 {
    U32 bufferLen = dStrlen(src) + 1;
-   char *buffer = (char *) dMalloc(bufferLen, fileName, lineNumber);
+   char *buffer = (char *)dMalloc_r(bufferLen, fileName, lineNumber);
    dStrcpy(buffer, src, bufferLen);
    return buffer;
 }
