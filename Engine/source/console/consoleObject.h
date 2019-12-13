@@ -234,8 +234,10 @@ public:
       mClassSizeof = 0;
       mClassType = 0;
       mDescription = "";
+#ifdef TORQUE_NET_STATS
       dMemset(mDirtyMaskFrequency, 0, sizeof(mDirtyMaskFrequency));
       dMemset(mDirtyMaskTotal, 0, sizeof(mDirtyMaskTotal));
+#endif
       mDynamicGroupExpand = false;
       mNamespace = NULL;
       mNetEventDir = NetEventDirAny;
