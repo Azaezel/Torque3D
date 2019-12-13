@@ -47,12 +47,11 @@ class SimFieldDictionary
 public:
    struct Entry
    {
-      Entry() : type(NULL) {};
-
       StringTableEntry slotName;
       char *value;
       Entry *next;
       ConsoleBaseType *type;
+      Entry():slotName(""), value(""), next(NULL), type(NULL) {};
    };
    enum
    {

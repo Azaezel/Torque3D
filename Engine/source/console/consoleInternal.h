@@ -307,6 +307,7 @@ public:
          mUsage = NULL;
          mIsConstant = false;
          value.init();
+         mNext = NULL;
       }
 
       Entry(StringTableEntry name);

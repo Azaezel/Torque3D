@@ -49,7 +49,7 @@ class ClippedPolyList : public AbstractPolyList
 public:
    struct Vertex {
       Point3F point;
-      U32 mask;
+      U32 mask = 0;
    };
 
    struct Poly {

@@ -59,7 +59,7 @@ public:
    SceneObject* object;
 
    ConvexFeature()
-      : mVertexList(64), mEdgeList(128), mFaceList(64), material( 0 )
+      : mVertexList(64), mEdgeList(128), mFaceList(64), material( 0 ), object(NULL)
    {
       VECTOR_SET_ASSOCIATION(mVertexList);
       VECTOR_SET_ASSOCIATION(mEdgeList);

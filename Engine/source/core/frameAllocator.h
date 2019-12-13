@@ -210,7 +210,7 @@ class FrameTemp
 protected:
    U32 mWaterMark;
    T *mMemory;
-   U32 mNumObjectsInMemory;
+   U32 mNumObjectsInMemory = 0;
 
 public:
    /// Constructor will store the FrameAllocator watermark and allocate the memory off

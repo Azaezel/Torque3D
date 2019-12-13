@@ -224,6 +224,21 @@ public:
       parentClass  = NULL;
       mIsRenderEnabled = true;
       mIsSelectionEnabled = true;
+      nextClass = NULL;
+      mCategory = "";
+      mClassGroupMask = -1;
+
+      for (U32 i = 0; i < NetClassGroupsCount; i++)
+         mClassId[i] = -1;
+      mClassName = "";
+      mClassSizeof = 0;
+      mClassType = 0;
+      mDescription = "";
+      dMemset(mDirtyMaskFrequency, 0, sizeof(mDirtyMaskFrequency));
+      dMemset(mDirtyMaskTotal, 0, sizeof(mDirtyMaskTotal));
+      mDynamicGroupExpand = false;
+      mNamespace = NULL;
+      mNetEventDir = NetEventDirAny;
    }
 
    /// @}
@@ -496,6 +511,7 @@ public:
             validator( NULL ),
             setDataFn( NULL ),
             getDataFn( NULL ),
+            writeDataFn(NULL),
             networkMask(0)
       {
          doNotSubstitute = keepClearSubsOnly = false;

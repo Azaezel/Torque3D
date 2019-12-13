@@ -26,7 +26,7 @@
 class TypeValidator
 {
    public:
-   S32 fieldIndex;
+   S32 fieldIndex = 0;
 
    /// Prints a console error message for the validator.
    ///
