@@ -167,7 +167,7 @@ inline bool ConstantTable::Create(const void* data)
 
          // Read header
          const char* ctab = reinterpret_cast<const char*>(ptr+2);
-         size_t ctab_size = (comment_size-1)*4;
+         U32 ctab_size = (comment_size-1)*4;
 
          const CTHeader* header = reinterpret_cast<const CTHeader*>(ctab);
          if(ctab_size < sizeof(*header) || header->Size != sizeof(*header))

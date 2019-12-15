@@ -59,7 +59,7 @@ GFXGLVertexBuffer::GFXGLVertexBuffer(  GFXDevice *device,
    //and allocate the needed memory
    PRESERVE_VERTEX_BUFFER();
    glBindBuffer(GL_ARRAY_BUFFER, mBuffer);
-   glBufferData(GL_ARRAY_BUFFER, numVerts * vertexSize, NULL, GFXGLBufferType[bufferType]);
+   glBufferData(GL_ARRAY_BUFFER, dsize_t(numVerts) * dsize_t(vertexSize), NULL, GFXGLBufferType[bufferType]);
 }
 
 GFXGLVertexBuffer::~GFXGLVertexBuffer()
@@ -93,7 +93,7 @@ void GFXGLVertexBuffer::lock( U32 vertexStart, U32 vertexEnd, void **vertexPtr )
    {
       mFrameAllocator.lock( mNumVerts * mVertexSize );
 
-      lockedVertexPtr = (void*)(mFrameAllocator.getlockedPtr() + (vertexStart * mVertexSize));
+      lockedVertexPtr = (void*)(mFrameAllocator.getlockedPtr() + (dsize_t(vertexStart) * dsize_t(mVertexSize)));
       *vertexPtr = lockedVertexPtr;
    }
 
@@ -118,7 +118,7 @@ void GFXGLVertexBuffer::unlock()
       glBindBuffer(GL_ARRAY_BUFFER, mBuffer);
    
       if( !lockedVertexStart && lockedVertexEnd == mNumVerts)
-         glBufferData(GL_ARRAY_BUFFER, mNumVerts * mVertexSize, NULL, GFXGLBufferType[mBufferType]); // orphan the buffer
+         glBufferData(GL_ARRAY_BUFFER, dsize_t(mNumVerts) * dsize_t(mVertexSize), NULL, GFXGLBufferType[mBufferType]); // orphan the buffer
 
       glBufferSubData(GL_ARRAY_BUFFER, offset, length, mFrameAllocator.getlockedPtr() + offset );
 
@@ -161,9 +161,9 @@ void GFXGLVertexBuffer::zombify()
    if(mZombieCache || !mBuffer)
       return;
       
-   mZombieCache = new U8[mNumVerts * mVertexSize];
+   mZombieCache = new U8[dsize_t(mNumVerts) * dsize_t(mVertexSize)];
    glBindBuffer(GL_ARRAY_BUFFER, mBuffer);
-   glGetBufferSubData(GL_ARRAY_BUFFER, 0, mNumVerts * mVertexSize, mZombieCache);
+   glGetBufferSubData(GL_ARRAY_BUFFER, 0, dsize_t(mNumVerts) * dsize_t(mVertexSize), mZombieCache);
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    glDeleteBuffers(1, &mBuffer);
    mBuffer = 0;
@@ -176,7 +176,7 @@ void GFXGLVertexBuffer::resurrect()
    
    glGenBuffers(1, &mBuffer);
    glBindBuffer(GL_ARRAY_BUFFER, mBuffer);
-   glBufferData(GL_ARRAY_BUFFER, mNumVerts * mVertexSize, mZombieCache, GFXGLBufferType[mBufferType]);
+   glBufferData(GL_ARRAY_BUFFER, dsize_t(mNumVerts) * dsize_t(mVertexSize), mZombieCache, GFXGLBufferType[mBufferType]);
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    
    delete[] mZombieCache;

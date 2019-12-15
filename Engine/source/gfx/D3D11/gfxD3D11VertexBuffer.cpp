@@ -110,7 +110,7 @@ void GFXD3D11VertexBuffer::lock(U32 vertexStart, U32 vertexEnd, void **vertexPtr
 			AssertFatal(false, "Unable to lock vertex buffer.");
 		}
 
-		*vertexPtr = (U8*)pVertexData.pData + (vertexStart * mVertexSize);
+		*vertexPtr = (U8*)pVertexData.pData + (dsize_t(vertexStart) * dsize_t(mVertexSize));
    }
    
   

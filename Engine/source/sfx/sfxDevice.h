@@ -104,7 +104,7 @@ class SFXDevice
       U32 mStatNumVoices;
 
       /// Current total memory size of sound buffers.  Reflected in $SFX::Device::numBufferBytes.
-      U32 mStatNumBufferBytes;
+      dsize_t mStatNumBufferBytes;
       
       /// Register a buffer with the device.
       /// This also triggers the buffer's stream packet request chain.

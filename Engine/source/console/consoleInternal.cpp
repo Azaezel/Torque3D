@@ -1985,7 +1985,7 @@ DefineEngineFunction(getPackageList, const char*, (), ,
       return "";
 
    // Determine size of return buffer
-   dsize_t buffersize = 0;
+   U32 buffersize = 0;
    for (U32 i = 0; i < Namespace::getActivePackagesCount(); ++i)
    {
       buffersize += dStrlen(Namespace::getActivePackage(i)) + 1;
