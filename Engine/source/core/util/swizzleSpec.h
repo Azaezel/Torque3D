@@ -29,7 +29,7 @@
 #include "core/util/byteswap.h"
 
 template<>
-inline void Swizzle<U8, 4>::InPlace( void *memory, const dsize_t size ) const
+inline void Swizzle<U8, 4>::InPlace( void *memory, const U32 size ) const
 {
    AssertFatal( size % 4 == 0, "Bad buffer size for swizzle, see docs." );
 
@@ -73,7 +73,7 @@ inline void Swizzle<U8, 4>::ToBuffer( void *destination, const void *source, con
 //------------------------------------------------------------------------------
 
 template<>
-inline void Swizzle<U8, 3>::InPlace( void *memory, const dsize_t size ) const
+inline void Swizzle<U8, 3>::InPlace( void *memory, const U32 size ) const
 {
    AssertFatal( size % 3 == 0, "Bad buffer size for swizzle, see docs." );
 

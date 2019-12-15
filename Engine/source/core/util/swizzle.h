@@ -62,7 +62,7 @@ public:
    ///
    /// @param  memory   Pointer to the start of the buffer to swizzle
    /// @param  size     Size of the buffer
-   virtual void InPlace( void *memory, const dsize_t size ) const;
+   virtual void InPlace( void *memory, const U32 size ) const;
 
    /// This method copies the data from source to destination while applying the
    /// re-ordering. This method is, in the non-specalized case, O(N^2) where N
@@ -137,7 +137,7 @@ inline void Swizzle<T, mapLength>::ToBuffer( void *destination, const void *sour
 //------------------------------------------------------------------------------
 
 template<class T, dsize_t mapLength>
-inline void Swizzle<T, mapLength>::InPlace( void *memory, const dsize_t size ) const
+inline void Swizzle<T, mapLength>::InPlace( void *memory, const U32 size ) const
 {
    // Just in case the inliner messes up the FrameTemp scoping (not sure if it would) -patw
    {

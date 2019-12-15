@@ -31,7 +31,7 @@ class DXT5nmSwizzle : public Swizzle<U8, 4>
 public:
    DXT5nmSwizzle() : Swizzle<U8, 4>( NULL ) {};
 
-   virtual void InPlace( void *memory, const dsize_t size ) const
+   virtual void InPlace( void *memory, const U32 size ) const
    {
       AssertFatal( size % 4 == 0, "Bad buffer size for DXT5nm Swizzle" );
 
@@ -77,7 +77,7 @@ class DXT5nmSwizzleUp24t32 : public Swizzle<U8, 3>
 public:
    DXT5nmSwizzleUp24t32() : Swizzle<U8, 3>( NULL ) {};
 
-   virtual void InPlace( void *memory, const dsize_t size ) const
+   virtual void InPlace( void *memory, const U32 size ) const
    {
       AssertISV( false, "Cannot swizzle in place a 24->32 bit swizzle." );
    }
