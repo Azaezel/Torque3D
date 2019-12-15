@@ -81,6 +81,7 @@ public:
       mOutputName[0] = 0;
       mShaderModel = 0.f;
       mIndex = 0;
+      mType = NullDevice;
 		dMemset(&mLUID, '\0', sizeof(mLUID));
    }
 

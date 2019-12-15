@@ -333,8 +333,8 @@ class Journal
 
    // Function declarations
    struct FuncDecl {
-      FuncDecl* next;
-      Id id;
+      FuncDecl* next = NULL;
+      Id id = 0;
       virtual ~FuncDecl() {}
       virtual bool match(VoidPtr,VoidMethod) const = 0;
       virtual Functor* create() const = 0;

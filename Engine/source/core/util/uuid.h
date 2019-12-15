@@ -52,7 +52,12 @@ namespace Torque
       
          UUID()
          {
-            dMemset( this, 0, sizeof( UUID ) );
+            a = 0;
+            b = 0;
+            c = 0;
+            d = 0;
+            e = 0;
+            dMemset( f, 0, sizeof( f ) );
          }
          
          ///

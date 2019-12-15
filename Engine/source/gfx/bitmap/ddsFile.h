@@ -180,7 +180,15 @@ struct DDSFile
    {
       VECTOR_SET_ASSOCIATION( mSurfaces );
       smActiveCopies++;
-
+      mBytesPerPixel = 0;
+      mDepth = 0;
+      mFormat = GFXFormatBC1;
+      mFourCC = 0;
+      mHeight = 0;
+      mWidth = 0;
+      mDepth = 0;
+      mMipMapCount = 0;
+      mPitchOrLinearSize = 0;
       mHasTransparency = false;
    }
 
