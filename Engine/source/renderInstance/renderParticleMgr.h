@@ -94,39 +94,39 @@ protected:
 
    struct OffscreenSystemEntry
    {
-      S32 targetChainIdx;
-      MatrixF clipMatrix;
-      RectF screenRect; 
-      bool drawnThisFrame;
-      Vector<ParticleRenderInst *> pInstances;
+      S32 targetChainIdx = 0;
+      MatrixF clipMatrix = MatrixF::Identity;
+      RectF screenRect = RectF(0.0f, 0.0f,1.0f,1.0f);
+      bool drawnThisFrame = false;
+      Vector<ParticleRenderInst *> pInstances = NULL;
    };
    Vector<OffscreenSystemEntry> mOffscreenSystems;
 
    struct ShaderConsts
    {
-      GFXShaderConstBufferRef mShaderConsts;
-      GFXShaderConstHandle *mModelViewProjSC;
-      GFXShaderConstHandle *mFSModelViewProjSC;
-      GFXShaderConstHandle *mOneOverFarSC;
-      GFXShaderConstHandle *mOneOverSoftnessSC;
-      GFXShaderConstHandle *mDeferredTargetParamsSC;
-      GFXShaderConstHandle *mAlphaFactorSC;
-      GFXShaderConstHandle *mAlphaScaleSC;
-      GFXShaderConstHandle *mSamplerDiffuse;
-      GFXShaderConstHandle *mSamplerDeferredTex;
-      GFXShaderConstHandle *mSamplerParaboloidLightMap;
+      GFXShaderConstBufferRef mShaderConsts = NULL;
+      GFXShaderConstHandle *mModelViewProjSC = NULL;
+      GFXShaderConstHandle *mFSModelViewProjSC = NULL;
+      GFXShaderConstHandle *mOneOverFarSC = NULL;
+      GFXShaderConstHandle *mOneOverSoftnessSC = NULL;
+      GFXShaderConstHandle *mDeferredTargetParamsSC = NULL;
+      GFXShaderConstHandle *mAlphaFactorSC = NULL;
+      GFXShaderConstHandle *mAlphaScaleSC = NULL;
+      GFXShaderConstHandle *mSamplerDiffuse = NULL;
+      GFXShaderConstHandle *mSamplerDeferredTex = NULL;
+      GFXShaderConstHandle *mSamplerParaboloidLightMap = NULL;
 
    } mParticleShaderConsts;
 
    struct CompositeShaderConsts
    {
-      GFXShaderConstBufferRef mShaderConsts;
-      GFXShaderConstHandle *mSystemDepth;
-      GFXShaderConstHandle *mScreenRect;
-      GFXShaderConstHandle *mSamplerColorSource;
-      GFXShaderConstHandle *mSamplerEdgeSource;
-      GFXShaderConstHandle *mEdgeTargetParamsSC;
-      GFXShaderConstHandle *mOffscreenTargetParamsSC;
+      GFXShaderConstBufferRef mShaderConsts = NULL;
+      GFXShaderConstHandle *mSystemDepth = NULL;
+      GFXShaderConstHandle *mScreenRect = NULL;
+      GFXShaderConstHandle *mSamplerColorSource = NULL;
+      GFXShaderConstHandle *mSamplerEdgeSource = NULL;
+      GFXShaderConstHandle *mEdgeTargetParamsSC = NULL;
+      GFXShaderConstHandle *mOffscreenTargetParamsSC = NULL;
    } mParticleCompositeShaderConsts;
 
    GFXVertexBufferHandle<CompositeQuadVert> mScreenQuadVertBuff;

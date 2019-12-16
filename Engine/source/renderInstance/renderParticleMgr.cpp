@@ -70,7 +70,8 @@ RenderParticleMgr::RenderParticleMgr()
             GFXFormatR8G8B8A8, 
             Point2I( Parent::DefaultTargetSize, Parent::DefaultTargetSize), 
             RenderToParticleTarget ? Parent::DefaultTargetChainLength : 0 ),
-            mParticleShader( NULL )
+            mParticleShader( NULL ),
+            mOffscreenRenderEnabled(true)
 {
    // Render particles at 1/4 resolution
    mTargetSizeType = WindowSizeScaled;

@@ -48,10 +48,10 @@ class SceneCullingVolume
    protected:
 
       /// What type of culling volume this is.
-      Type mType;
+      Type mType = Includer;
 
       ///
-      F32 mSortPoint;
+      F32 mSortPoint = 0.0f;
 
       /// The set of clipping planes that defines the clipping volume for this culler.
       PlaneSetF mClippingPlanes;

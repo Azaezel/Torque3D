@@ -722,36 +722,36 @@ class TSThread
 {
    friend class TSShapeInstance;
 
-   S32 priority;
+   S32 priority = 1;
 
-   TSShapeInstance * mShapeInstance;  ///< Instance of the shape that this thread animates
+   TSShapeInstance* mShapeInstance = NULL;  ///< Instance of the shape that this thread animates
 
-   S32 sequence;                      ///< Sequence this thread will perform
-   F32 mSeqPos;
+   S32 sequence = 0;                  ///< Sequence this thread will perform
+   F32 mSeqPos = 0.0f;
 
-   F32 timeScale;                     ///< How fast to play through the sequence
+   F32 timeScale = 1.0f;              ///< How fast to play through the sequence
 
-   S32 keyNum1;                       ///< Keyframe at or before current position
-   S32 keyNum2;                       ///< Keyframe at or after current position
-   F32 keyPos;
+   S32 keyNum1 = 0;                       ///< Keyframe at or before current position
+   S32 keyNum2 = 1;                       ///< Keyframe at or after current position
+   F32 keyPos = 0.0f;
 
-   bool blendDisabled;                ///< Blend with other sequences?
+   bool blendDisabled = false;        ///< Blend with other sequences?
 
    /// if in transition...
    struct TransitionData
    {
-      bool inTransition;
+      bool inTransition = false;
 
-      F32 duration;
-      F32 pos;
-      F32 direction;
-      F32 targetScale; ///< time scale for sequence we are transitioning to (during transition only)
+      F32 duration = 0.0f;
+      F32 pos = 0.0f;
+      F32 direction = 0.0f;
+      F32 targetScale = 1.0f; ///< time scale for sequence we are transitioning to (during transition only)
                        ///< this is either 1 or 0 (if 1 target sequence plays as we transition, if 0 it doesn't)
       TSIntegerSet oldRotationNodes;    ///< nodes controlled by this thread pre-transition
       TSIntegerSet oldTranslationNodes; ///< nodes controlled by this thread pre-transition
       TSIntegerSet oldScaleNodes;       ///< nodes controlled by this thread pre-transition
-      U32 oldSequence; ///< sequence that was set before transition began
-      F32 oldPos;      ///< position of sequence before transition began
+      U32 oldSequence = 0; ///< sequence that was set before transition began
+      F32 oldPos = 0.0f;      ///< position of sequence before transition began
    } transitionData;
 
    struct
@@ -760,7 +760,7 @@ class TSThread
       F32 end;
       S32 loop;
    } path;
-   bool makePath;
+   bool makePath = false;
 
    /// given a position on the thread, choose correct keyframes
    /// slight difference between one-shot and cyclic sequences -- see comments below for details
