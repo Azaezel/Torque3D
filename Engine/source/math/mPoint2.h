@@ -35,8 +35,8 @@ class Point2I
 {
    //-------------------------------------- Public data
   public:
-   S32 x;   ///< X position
-   S32 y;   ///< Y position
+   S32 x = 0;   ///< X position
+   S32 y = 0;   ///< Y position
 
    //-------------------------------------- Public interface
   public:
@@ -102,8 +102,8 @@ class Point2F
 {
    //-------------------------------------- Public data
   public:
-   F32 x;
-   F32 y;
+   F32 x = 0.0f;
+   F32 y = 0.0f;
 
   public:
    Point2F();                           ///< Create uninitialized point.
@@ -194,8 +194,8 @@ class Point2D
 {
    //-------------------------------------- Public data
   public:
-   F64 x;   ///< X co-ordinate.
-   F64 y;   ///< Y co-ordinate.
+   F64 x = 0.0f;   ///< X co-ordinate.
+   F64 y = 0.0f;   ///< Y co-ordinate.
 
   public:
    Point2D();                           ///< Create uninitialized point.

@@ -60,7 +60,7 @@ class PlaneSet
    protected:
 
       /// Number of planes in #mPlanes.
-      U32 mNumPlanes;
+      U32 mNumPlanes = 0;
 
       /// Set of planes.  The memory for this array is managed outside
       /// this class.

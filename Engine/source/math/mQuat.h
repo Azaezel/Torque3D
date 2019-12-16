@@ -40,7 +40,10 @@ public:
    const static QuatF Identity;
 
   public:
-   F32  x,y,z,w;
+   F32 x = 0.0f;
+   F32 y = 0.0f;
+   F32 z = 0.0f;
+   F32 w = 0.0f;
 
    QuatF() {} // no init constructor
    QuatF( F32 _x, F32 _y, F32 _z, F32 w );

@@ -160,27 +160,27 @@ struct FrustumData : public PolyhedronData
 
       /// Determines whether this Frustum
       /// is orthographic or perspective.
-      bool mIsOrtho;
+      bool mIsOrtho = false;
 
       /// Whether the frustum is inverted, i.e. whether the planes are
       /// facing outwards rather than inwards.
-      bool mIsInverted;
+      bool mIsInverted = false;
 
       /// Used to transform the frustum points from camera
       /// space into the desired clipping space.
-      MatrixF mTransform;
+      MatrixF mTransform = MatrixF::Identity;
 
       /// Camera position extracted from tarnsform.
-      Point3F mPosition;
+      Point3F mPosition = Point3F::Zero;
 
       /// The size of the near plane used to generate
       /// the frustum points and planes.
-      F32 mNearLeft;
-      F32 mNearRight;
-      F32 mNearTop;
-      F32 mNearBottom;
-      F32 mNearDist;
-      F32 mFarDist;
+      F32 mNearLeft = -1.0f;
+      F32 mNearRight = 1.0f;
+      F32 mNearTop = 1.0f;
+      F32 mNearBottom = -1.0f;
+      F32 mNearDist = 0.01f;
+      F32 mFarDist = 1000.0f;
 
       /// Update the point and plane data from the current frustum settings.
       void _update() const;

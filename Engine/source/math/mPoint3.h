@@ -38,9 +38,9 @@ class Point3I
 {
    //-------------------------------------- Public data
   public:
-   S32 x;                                                   ///< X co-ordinate
-   S32 y;                                                   ///< Y co-ordinate
-   S32 z;                                                   ///< Z co-ordinate
+     S32 x = 0;                                                   ///< X co-ordinate
+     S32 y = 0;                                                   ///< Y co-ordinate
+     S32 z = 0;                                                   ///< Z co-ordinate
 
    //-------------------------------------- Public interface
   public:
@@ -101,9 +101,9 @@ class Point3F
 {
    //-------------------------------------- Public data
   public:
-   F32 x;
-   F32 y;
-   F32 z;
+   F32 x = 0.0f;
+   F32 y = 0.0f;
+   F32 z = 0.0f;
 
   public:
    Point3F();
@@ -203,9 +203,9 @@ class Point3D
 {
    //-------------------------------------- Public data
   public:
-   F64 x;
-   F64 y;
-   F64 z;
+   F64 x = 0.0f;
+   F64 y = 0.0f;
+   F64 z = 0.0f;
 
   public:
    Point3D();

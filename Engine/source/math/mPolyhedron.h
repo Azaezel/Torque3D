@@ -91,12 +91,12 @@ struct PolyhedronData
       {
          /// Index into plane vector for the two planes that go through this
          /// edge.
-         U32 face[ 2 ];
+         U32 face[2] = { 0 };
 
          /// Index into point vector for the beginning and end point of the edge.
          /// @note The vector "vertex[ 1 ] - vertex[ 0 ]" must be oriented such that
          ///   it defines a *clockwise* orientation for face[ 0 ].  This is important!
-         U32 vertex[ 2 ];
+         U32 vertex[2] = { 0 };
 
          Edge() {}
          Edge( U32 face1, U32 face2, U32 vertex1, U32 vertex2 )

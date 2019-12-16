@@ -34,7 +34,7 @@ class MRandomGenerator
 {
 protected:
    MRandomGenerator() {}
-   S32  mSeed;
+   S32  mSeed = 0xDEADBEEF;
 
 public:
    virtual ~MRandomGenerator() {}

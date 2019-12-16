@@ -31,8 +31,8 @@
 class SphereF
 {
 public:
-   Point3F center;
-   F32     radius;
+   Point3F center = Point3F::Zero;
+   F32     radius = 0.0f;
 
 public:
    SphereF() { }

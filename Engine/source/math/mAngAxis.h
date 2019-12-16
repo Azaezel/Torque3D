@@ -36,8 +36,8 @@ class QuatF;
 class AngAxisF
 {
   public:
-   Point3F axis;
-   F32  angle;
+   Point3F axis = Point3F::UnitX;
+   F32  angle = 0.0f;
 
    AngAxisF();
    AngAxisF( const Point3F & _axis, F32 _angle );

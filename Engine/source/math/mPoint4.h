@@ -44,10 +44,10 @@ class Point4I
 
    void zero();   ///< Zero all values
 
-   S32 x;                                                   
-   S32 y;                                                   
-   S32 z;                                                   
-   S32 w;       
+   S32 x = 0;
+   S32 y = 0;
+   S32 z = 0;
+   S32 w = 0;
 
 	//-------------------------------------- Public static constants
   public:
@@ -65,10 +65,10 @@ class Point4F
 {
    //-------------------------------------- Public data
   public:
-   F32 x;   ///< X co-ordinate.
-   F32 y;   ///< Y co-ordinate.
-   F32 z;   ///< Z co-ordinate.
-   F32 w;   ///< W co-ordinate.
+   F32 x = 0.0f;   ///< X co-ordinate.
+   F32 y = 0.0f;   ///< Y co-ordinate.
+   F32 z = 0.0f;   ///< Z co-ordinate.
+   F32 w = 0.0f;   ///< W co-ordinate.
 
   public:
    Point4F();               ///< Create an uninitialized point.

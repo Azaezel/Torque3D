@@ -48,7 +48,7 @@ class PlaneF : public Point3F
    public:
 
       /// *NEGATIVE* distance along the xyz normal.
-      F32 d;
+      F32 d = 0.0f;
 
       /// Return the plane's normal.
       const Point3F& getNormal() const { return *this; }
@@ -511,7 +511,7 @@ class PlaneD: public Point3D
 {
 public:
    /// NOTE: d is the NEGATIVE distance along the xyz normal.
-   F64 d;
+   F64 d = 0.0f;
 
    PlaneD();
    PlaneD( const PlaneF& copy);
