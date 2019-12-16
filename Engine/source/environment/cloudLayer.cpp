@@ -90,7 +90,8 @@ CloudLayer::CloudLayer()
    mBaseColorSC =
    mCoverageSC =
    mExposureSC =
-   mEyePosWorldSC = 0;
+   mEyePosWorldSC =
+   mNormalHeightMapSC = NULL;
 
    mTexOffsetSC[0] = mTexOffsetSC[1] = mTexOffsetSC[2] = 0;
 

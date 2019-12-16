@@ -228,8 +228,7 @@ public:
       mCategory = "";
       mClassGroupMask = -1;
 
-      for (U32 i = 0; i < U32(NetClassGroupsCount); i++)
-         mClassId[i] = -1;
+      dMemset(mClassId, -1, sizeof(mClassId));
 
       mClassName = "";
       mClassSizeof = 0;

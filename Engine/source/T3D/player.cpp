@@ -5179,7 +5179,7 @@ bool Player::updatePos(const F32 travelTime)
          // Store the last collision for use later on.  The handle collision
          // code only expects a single collision object.
          if (collisionList.getCount() > 0)
-            col = collisionList[collisionList.getCount() - 1];
+            col = collisionList[dsize_t(collisionList.getCount()) - dsize_t(1)];
 
          // We'll handle any player-to-player collision, and the last collision
          // with other obejct types.

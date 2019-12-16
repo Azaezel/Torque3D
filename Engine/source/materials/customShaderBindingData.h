@@ -29,16 +29,16 @@ public:
 		Matrix4x4
 	};
 private:
-	StringTableEntry targetedUniformName;
+	StringTableEntry targetedUniformName = "";
 
 	//ShaderConstHandles shaderConstHandle;
 
-	UniformType type;
+	UniformType type = UniformType::Float;
 
-	F32 mFloat;
-	Point2F mFloat2;
-	Point3F mFloat3;
-	Point4F mFloat4;
+	F32 mFloat = 0;
+	Point2F mFloat2 = Point2F::Zero;
+	Point3F mFloat3 = Point3F::Zero;
+	Point4F mFloat4 = Point4F::Zero;
 
 	//Image stuff
 	GFXTexHandle texture;
@@ -49,7 +49,7 @@ public:
 	{
 		targetedUniformName = shaderConstName;
 		mFloat = f;
-		type = Float;
+		type = UniformType::Float;
 	}
 	F32 getFloat() { return mFloat; }
 
@@ -57,7 +57,7 @@ public:
 	{
 		targetedUniformName = shaderConstName;
 		mFloat2 = f;
-		type = Float2;
+		type = UniformType::Float2;
 	}
 	Point2F getFloat2() { return mFloat2; }
 
@@ -65,7 +65,7 @@ public:
 	{
 		targetedUniformName = shaderConstName;
 		mFloat3 = f;
-		type = Float3;
+		type = UniformType::Float3;
 	}
 	Point3F getFloat3() { return mFloat3; }
 
@@ -73,7 +73,7 @@ public:
 	{
 		targetedUniformName = shaderConstName;
 		mFloat4 = f;
-		type = Float4;
+		type = UniformType::Float4;
 	}
 	Point4F getFloat4() { return mFloat4; }
 
@@ -81,7 +81,7 @@ public:
    {
       targetedUniformName = shaderConstName;
       texture = f;
-      type = Texture2D;
+      type = UniformType::Texture2D;
    }
    GFXTexHandle getTexture2D() { return texture; }
 

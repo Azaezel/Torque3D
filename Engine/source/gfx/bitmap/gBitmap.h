@@ -264,7 +264,7 @@ private:
    U32 mBytesPerPixel;
 
    U32 mNumMipLevels;
-   U32 mMipLevelOffsets[c_maxMipLevels];
+   U32 mMipLevelOffsets[c_maxMipLevels] = { 0xffffffff };
 
    bool mHasTransparency;
 

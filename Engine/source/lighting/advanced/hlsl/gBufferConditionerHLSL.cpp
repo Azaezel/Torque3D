@@ -72,6 +72,7 @@ GBufferConditionerHLSL::GBufferConditionerHLSL( const GFXFormat bufferFormat, co
 
       default:
          AssertFatal(false, "Unsupported G-Buffer format");
+         mBitsPerChannel = 0;
    }
 }
 
@@ -279,7 +280,7 @@ GenOp* GBufferConditionerHLSL::_posnegEncode( GenOp *val )
 GenOp* GBufferConditionerHLSL::_posnegDecode( GenOp *val )
 {
    if(mNormalStorageType == LambertAzimuthal)
-      return mCanWriteNegativeValues ? val : new GenOp(avar("(@ * %f - %f)", M_SQRT2_F * 2.0f, M_SQRT2_F), val);
+      return mCanWriteNegativeValues ? val : new GenOp(avar("(@ * %f - %f)", F32(M_SQRT2_F * 2.0f), F32(M_SQRT2_F)), val);
    else
       return mCanWriteNegativeValues ? val : new GenOp("(@ * 2.0 - 1.0)", val);
 }

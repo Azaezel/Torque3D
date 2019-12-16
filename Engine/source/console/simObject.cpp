@@ -99,6 +99,7 @@ SimObject::SimObject()
    mCopySource = NULL;
    mPersistentId = NULL;
    is_temp_clone = false;
+   mProgenitorFile = "";
 }
 
 //-----------------------------------------------------------------------------

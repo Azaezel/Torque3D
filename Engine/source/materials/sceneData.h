@@ -60,35 +60,35 @@ struct SceneData
    /// This defines when we're rendering a special bin 
    /// type that the material or lighting system needs
    /// to know about.
-   BinType binType;
+   BinType binType = BinType::RegularBin;
 
    // textures
-   GFXTextureObject *lightmap;
-   GFXTextureObject *backBuffTex;
-   GFXTextureObject *reflectTex;
-   GFXTextureObject *miscTex;
-   GFXTextureObject *accuTex;
+   GFXTextureObject* lightmap = NULL;
+   GFXTextureObject *backBuffTex = NULL;
+   GFXTextureObject *reflectTex = NULL;
+   GFXTextureObject *miscTex = NULL;
+   GFXTextureObject *accuTex = NULL;
    
    /// The current lights to use in rendering
    /// in order of the light importance.
-   LightInfo* lights[8];
+   LightInfo* lights[8] = { NULL };
 
    ///
    LinearColorF ambientLightColor;
 
    // fog      
-   F32 fogDensity;
-   F32 fogDensityOffset;
-   F32 fogHeightFalloff;
-   LinearColorF fogColor;
+   F32 fogDensity = 0.0f;
+   F32 fogDensityOffset = 0.0f;
+   F32 fogHeightFalloff = 0.0f;
+   LinearColorF fogColor = LinearColorF::ZERO;
   
    // misc
-   const MatrixF *objTrans;
-   GFXCubemap *cubemap;
-   F32 visibility;
+   const MatrixF *objTrans = NULL;
+   GFXCubemap *cubemap = NULL;
+   F32 visibility = 1.0f;
 
    /// Enables wireframe rendering for the object.
-   bool wireframe;
+   bool wireframe = false;
 
    /// A generic hint value passed from the game
    /// code down to the material for use by shader 

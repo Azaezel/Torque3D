@@ -609,7 +609,8 @@ AdvancedLightBinManager::LightMaterialInfo::LightMaterialInfo( const String &mat
    lightRange(NULL),
    lightInvSqrRange(NULL),
    lightAmbient(NULL),
-   lightSpotParams(NULL)
+   lightSpotParams(NULL),
+   lightBrightness(NULL)
 {   
    Material *mat = MATMGR->getMaterialDefinitionByName( matName );
    if ( !mat )
