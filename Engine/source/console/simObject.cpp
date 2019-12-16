@@ -1394,6 +1394,7 @@ SimObject::SimObject(const SimObject& other, bool temp_clone)
    mClassName = other.mClassName;
    mSuperClassName = other.mSuperClassName;
    preventNameChanging = other.preventNameChanging;
+   mProgenitorFile = other.mProgenitorFile;
 
    if (mId)
       dSprintf( mIdString, sizeof( mIdString ), "%u", mId );

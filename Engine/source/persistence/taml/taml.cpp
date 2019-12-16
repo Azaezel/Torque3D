@@ -639,7 +639,7 @@ ImplementEnumType(_TamlFormatMode,
 
       // Iterate fields.
       U8 arrayDepth = 0;
-      TamlCustomNode* currentArrayNode;
+      TamlCustomNode* currentArrayNode = NULL;
       for (U32 index = 0; index < fieldCount; ++index)
       {
          // Fetch field.
@@ -727,7 +727,8 @@ ImplementEnumType(_TamlFormatMode,
 
             // Save field/value.
             if (arrayDepth > 0 || pField->elementCount > 1)
-               currentArrayNode->getChildren()[elementIndex]->addField(fieldName, pFieldValue);
+               if(currentArrayNode)
+                  currentArrayNode->getChildren()[elementIndex]->addField(fieldName, pFieldValue);
             else
             {
                TamlWriteNode::FieldValuePair* pFieldValuePair = new TamlWriteNode::FieldValuePair(fieldName, pFieldValue);

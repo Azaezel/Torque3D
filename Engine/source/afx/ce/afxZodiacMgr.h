@@ -60,22 +60,22 @@ class afxZodiacMgr : public afxZodiacDefs
 private:
   struct ZodiacSpec
   {
-     Point3F        pos;              //12// world position
-     F32            radius_xy;        // 4// radius of zodiac
-     Point2F        vert_range;       // 8// vertical range
-     Point2F        grade_range;      // 8// plane gradient range
-     ColorI         color;            // 4// color of zodiac
-     F32            angle;            // 4// angle in radians
-     U32            zflags;           // 4// 0=normal,1=additive,2=subtractive
-     GFXTexHandle*  txr;              // 4// zodiac texture
+     Point3F        pos = Point3F::Zero;           //12// world position
+     F32            radius_xy = 0;                 // 4// radius of zodiac
+     Point2F        vert_range = Point2F::Zero;    // 8// vertical range
+     Point2F        grade_range = Point2F::Zero;   // 8// plane gradient range
+     ColorI         color = ColorI::WHITE;         // 4// color of zodiac
+     F32            angle = 0.0f;                  // 4// angle in radians
+     U32            zflags = NULL;                 // 4// 0=normal,1=additive,2=subtractive
+     GFXTexHandle*  txr = NULL;                    // 4// zodiac texture
 
-     F32            distance_max;
-     F32            distance_falloff;
-     F32            distance_delta;
+     F32            distance_max = 0.0f;
+     F32            distance_falloff = 0.0f;
+     F32            distance_delta = 0.0f;
 
-     Point3F        loc_pos;          //12// transformed to local position
-     F32            loc_cos_ang;      // 4// cosine of local rotation angle
-     F32            loc_sin_ang;      // 4// sine of local rotation angle
+     Point3F        loc_pos = Point3F::Zero; //12// transformed to local position
+     F32            loc_cos_ang = 0.0f;      // 4// cosine of local rotation angle
+     F32            loc_sin_ang = 0.0f;      // 4// sine of local rotation angle
 
      F32            calcDistanceFadeBias(F32 camDist) const
                     {
