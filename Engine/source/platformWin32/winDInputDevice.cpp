@@ -1575,7 +1575,7 @@ const char* DInputDevice::getJoystickAxesString()
       }
    }
 
-   dsize_t returnLen = dStrlen(buf) + 1;
+   U32 returnLen = dStrlen(buf) + 1;
    char* returnString = Con::getReturnBuffer(returnLen);
    dStrcpy( returnString, buf, returnLen );
    return( returnString );

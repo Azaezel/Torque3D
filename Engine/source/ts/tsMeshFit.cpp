@@ -285,7 +285,7 @@ void MeshFit::addSourceMesh( const TSShape::Object& obj, const TSMesh* mesh )
    if ( mesh->mVertexData.isReady() && mesh->mVerts.size() == 0 )
    {
       count = mesh->mVertexData.size();
-      stride = mesh->mVertexData.vertSize();
+      stride = U32(mesh->mVertexData.vertSize());
       pVert = (U8*)mesh->mVertexData.address();
    }
    else

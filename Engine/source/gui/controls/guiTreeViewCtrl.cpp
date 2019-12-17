@@ -445,7 +445,7 @@ U32 GuiTreeViewCtrl::Item::getDisplayTextLength()
             return dStrlen( "(none)" );
       }
 
-      dsize_t len = 0;
+      U32 len = 0;
       if( mState.test( ShowObjectId ) )
          len += dStrlen( obj->getIdString() ) + 2; // '<id>: '
       if( mState.test( ShowClassName ) )
@@ -628,7 +628,7 @@ void GuiTreeViewCtrl::Item::getTooltipText(U32 bufLen, char *buf)
          if(mParentControl->isMethod(method.c_str()))
          {
             const char* tooltip = Con::executef( mParentControl, method.c_str(), pObject->getIdString() );
-            dsize_t len = dStrlen(buf);
+            U32 len = dStrlen(buf);
             S32 newBufLen = bufLen-len;
             if(dStrlen(tooltip) > 0 && newBufLen > 0)
             {
@@ -1862,10 +1862,10 @@ bool GuiTreeViewCtrl::buildIconTable(const char * icons)
       while( *pos && *pos != ':' )
          pos ++;
       
-      const dsize_t len = pos - start;
+      const U32 len = pos - start;
       if( len )
       {
-         dStrncpy( buf, start, getMin( sizeof( buf ) / sizeof( buf[ 0 ] ) - 1, len ) );
+         dStrncpy( buf, start, getMin(U32(sizeof( buf ) / sizeof( buf[ 0 ] ) - 1), len ) );
          buf[ len ] = '\0';
                   
          mIconTable[ numIcons ] = GFXTexHandle( buf, &GFXTexturePersistentProfile, avar( "%s() - mIconTable[%d] (line %d)", __FUNCTION__, numIcons, __LINE__ ) );

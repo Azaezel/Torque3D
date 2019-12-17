@@ -52,11 +52,11 @@
 
 // Buffer size bounds checking "safe" versions of strcat and strcpy. Ideally you
 // should use these and check if they return >= dstSize and throw an error if so.
-extern S32  dStrlcat(char *dst, const char *src, dsize_t dstSize);
-extern S32  dStrlcpy(char *dst, const char *src, dsize_t dstSize);
+extern S32  dStrlcat(char *dst, const char *src, U32 dstSize);
+extern S32  dStrlcpy(char *dst, const char *src, U32 dstSize);
 
 #ifdef UNSAFE_STRING_FUNCTIONS
-/// @deprecated Use dStrcat(char *, const char *, dsize_t) instead
+/// @deprecated Use dStrcat(char *, const char *, U32) instead
 inline char *dStrcat(char *dst, const char *src)
 {
    AssertFatal(false, "dStrcat without length is deprecated");
@@ -69,13 +69,13 @@ inline char *dStrcat(char *dst, const char *src)
 ///       instead of the number of characters to copy like strncat. This is done
 ///       under the assumption that being easier to use will make this safer.
 ///       If you want the original behavior use dStrncat.
-inline char *dStrcat(char *dst, const char *src, dsize_t dstSize)
+inline char *dStrcat(char *dst, const char *src, U32 dstSize)
 {
    dStrlcat(dst, src, dstSize);
    return dst;
 }
 
-inline char *dStrncat(char *dst, const char *src, dsize_t len)
+inline char *dStrncat(char *dst, const char *src, U32 len)
 {
    return strncat(dst, src, len);
 }
@@ -90,7 +90,7 @@ inline bool dStrIsEmpty(const char *src)
    return src == 0 || src[0] == '\0';
 }
 
-inline S32  dStrncmp(const char *str1, const char *str2, dsize_t len)
+inline S32  dStrncmp(const char *str1, const char *str2, U32 len)
 {
    return strncmp(str1, str2, len);   
 }  
@@ -100,13 +100,13 @@ inline S32  dStricmp(const char *str1, const char *str2)
    return strcasecmp( str1, str2 );
 }
 
-inline S32  dStrnicmp(const char *str1, const char *str2, dsize_t len)
+inline S32  dStrnicmp(const char *str1, const char *str2, U32 len)
 {
    return strncasecmp( str1, str2, len );
 }
 
 #ifdef UNSAFE_STRING_FUNCTIONS
-/// @deprecated Use strcpy(char *, const char *, dsize_t) instead
+/// @deprecated Use strcpy(char *, const char *, U32) instead
 inline char *dStrcpy(char *dst, const char *src)
 {
    AssertFatal(false, "dStrcpy without length is deprecated");
@@ -114,13 +114,13 @@ inline char *dStrcpy(char *dst, const char *src)
 }
 #endif
 
-inline char *dStrcpy(char *dst, const char *src, dsize_t dstSize)
+inline char *dStrcpy(char *dst, const char *src, U32 dstSize)
 {
    dStrlcpy(dst, src, dstSize);
    return dst;
 }   
 
-inline char *dStrncpy(char *dst, const char *src, dsize_t len)
+inline char *dStrncpy(char *dst, const char *src, U32 len)
 {
    return strncpy(dst,src,len);
 }   
@@ -150,14 +150,14 @@ inline const char *dStrrchr(const char *str, S32 c)
    return strrchr(str,c);
 }   
 
-inline dsize_t dStrspn(const char *str, const char *set)
+inline U32 dStrspn(const char *str, const char *set)
 {
-   return strspn(str, set);
+   return U32(strspn(str, set));
 }
 
-inline dsize_t dStrcspn(const char *str, const char *set)
+inline U32 dStrcspn(const char *str, const char *set)
 {
-   return strcspn(str, set);
+   return U32(strcspn(str, set));
 }   
 
 inline char *dStrstr(const char *str1, const char *str2)
@@ -239,10 +239,10 @@ inline bool dIsquote(const char c)
 // non-standard string functions [defined in stringFunctions.cpp]
 
 #define dStrdup(x) dStrdup_r(x, __FILE__, __LINE__)
-extern char *dStrdup_r(const char *src, const char*, dsize_t);
+extern char *dStrdup_r(const char *src, const char*, U32);
 
-extern char *dStrcpyl(char *dst, dsize_t dstSize, ...);
-extern char *dStrcatl(char *dst, dsize_t dstSize, ...);
+extern char *dStrcpyl(char *dst, U32 dstSize, ...);
+extern char *dStrcatl(char *dst, U32 dstSize, ...);
 
 extern char *dStrupr(char *str);
 extern char *dStrlwr(char *str);

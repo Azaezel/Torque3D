@@ -75,8 +75,13 @@ static void pngReadDataFn(png_structp png_ptr,
    AssertFatal(png_get_io_ptr(png_ptr) != NULL, "No stream?");
 
    Stream *strm = (Stream*)png_get_io_ptr(png_ptr);
-   bool success = strm->read(length, data);
-   AssertFatal(success, "pngReadDataFn - failed to read from stream!");
+   bool success = (length < U32_MAX);
+   if (success)
+   {
+      success = strm->read(U32(length), data);
+      AssertFatal(success, "pngReadDataFn - failed to read from stream!");
+   }
+   AssertWarn(success, avar("pngReadDataFn(%d/%d) seems extreem. Memory leak?", length, U32_MAX));
 }
 
 
@@ -88,8 +93,13 @@ static void pngWriteDataFn(png_structp png_ptr,
    AssertFatal(png_get_io_ptr(png_ptr) != NULL, "No stream?");
 
    Stream *strm = (Stream*)png_get_io_ptr(png_ptr);
-   bool success = strm->write(length, data);
-   AssertFatal(success, "pngWriteDataFn - failed to write to stream!");
+   bool success = (length < U32_MAX);
+   if (success)
+   {
+      success = strm->write(U32(length), data);
+      AssertFatal(success, "pngWriteDataFn - failed to write to stream!");
+   }
+   AssertWarn(success, avar("pngWriteDataFn(%d/%d) seems extreem. Memory leak?", length, U32_MAX));
 }
 
 
@@ -101,7 +111,8 @@ static void pngFlushDataFn(png_structp /*png_ptr*/)
 
 static png_voidp pngMallocFn(png_structp /*png_ptr*/, png_size_t size)
 {
-   return FrameAllocator::alloc(size);
+   AssertWarn(size < U32_MAX, avar("pngMallocFn(%d/%d) seems extreem. Memory leak?", size, U32_MAX));
+   return FrameAllocator::alloc(U32(size));
 }
 
 static void pngFreeFn(png_structp /*png_ptr*/, png_voidp /*mem*/)
@@ -265,7 +276,7 @@ static bool sReadPNG(Stream &stream, GBitmap *bitmap)
    //  above...
    png_read_update_info(png_ptr, info_ptr);
 
-   png_uint_32 rowBytes = png_get_rowbytes(png_ptr, info_ptr);
+   png_size_t rowBytes = png_get_rowbytes(png_ptr, info_ptr);
    if (format == GFXFormatR8G8B8) 
    {
       AssertFatal(rowBytes == width * 3,
@@ -292,7 +303,7 @@ static bool sReadPNG(Stream &stream, GBitmap *bitmap)
    U8* pBase = (U8*)bitmap->getBits();
    
    for (U32 i = 0; i < height; i++)
-      rowPointers[i] = pBase + (dsize_t(i) * dsize_t(rowBytes));
+      rowPointers[i] = pBase + (png_size_t(i) * rowBytes);
 
    // And actually read the image!
    png_read_image(png_ptr, rowPointers);

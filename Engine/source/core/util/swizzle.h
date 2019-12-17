@@ -85,7 +85,7 @@ public:
 
    virtual void ToBuffer( void *destination, const void *source, const dsize_t size ) const
    {
-      dMemcpy( destination, source, size );
+      memcpy( destination, source, size );
    }
 };
 

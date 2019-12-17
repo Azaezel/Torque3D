@@ -561,10 +561,10 @@ DefineEngineFunction( stripChars, const char*, ( const char* str, const char* ch
    "@endtsexample\n"
    "@ingroup Strings" )
 {
-   dsize_t len = dsize_t(dStrlen(str)) + 1;
+   U32 len = dStrlen(str) + 1;
    char* ret = Con::getReturnBuffer( len );
    dStrcpy( ret, str, len );
-   dsize_t pos = dStrcspn( ret, chars );
+   U32 pos = dStrcspn( ret, chars );
    while ( pos < dStrlen( ret ) )
    {
       dStrcpy( ret + pos, ret + pos + 1, len - pos );
@@ -650,12 +650,12 @@ DefineEngineFunction( strreplace, const char*, ( const char* source, const char*
    "@endtsexample\n"
    "@ingroup Strings" )
 {
-   dsize_t fromLen = dsize_t(dStrlen( from ));
+   U32 fromLen = dStrlen( from );
    if(!fromLen)
       return source;
 
-   dsize_t toLen = dsize_t(dStrlen( to ));
-   dsize_t count = 0;
+   U32 toLen = dStrlen( to );
+   U32 count = 0;
    const char *scan = source;
    while(scan)
    {
@@ -666,10 +666,10 @@ DefineEngineFunction( strreplace, const char*, ( const char* source, const char*
          count++;
       }
    }
-   dsize_t retLen = dsize_t(dStrlen(source)) + 1 + (toLen - fromLen) * count;
+   U32 retLen = dStrlen(source) + 1 + (toLen - fromLen) * count;
    char *ret = Con::getReturnBuffer(retLen);
-   dsize_t scanp = 0;
-   dsize_t dstp = 0;
+   U32 scanp = 0;
+   U32 dstp = 0;
    for(;;)
    {
       const char *subScan = dStrstr(source + scanp, from);
@@ -678,7 +678,7 @@ DefineEngineFunction( strreplace, const char*, ( const char* source, const char*
          dStrcpy(ret + dstp, source + scanp, retLen - dstp);
          return ret;
       }
-      dsize_t len = subScan - (source + scanp);
+      U32 len = subScan - (source + scanp);
       dStrncpy(ret + dstp, source + scanp, getMin(len, retLen - dstp));
       dstp += len;
       dStrcpy(ret + dstp, to, retLen - dstp);
@@ -889,8 +889,8 @@ DefineEngineFunction( startsWith, bool, ( const char* str, const char* prefix, b
    "@ingroup Strings" )
 {
    // if the target string is empty, return true (all strings start with the empty string)
-   dsize_t srcLen = dStrlen( str );
-   dsize_t targetLen = dStrlen( prefix );
+   U32 srcLen = dStrlen( str );
+   U32 targetLen = dStrlen( prefix );
    if( targetLen == 0 )
       return true;
    // else if the src string is empty, return false (empty src does not start with non-empty target)
@@ -938,8 +938,8 @@ DefineEngineFunction( endsWith, bool, ( const char* str, const char* suffix, boo
    "@ingroup Strings" )
 {
    // if the target string is empty, return true (all strings end with the empty string)
-   dsize_t srcLen = dsize_t(dStrlen( str ));
-   dsize_t targetLen = dsize_t(dStrlen( suffix ));
+   U32 srcLen = dsize_t(dStrlen( str ));
+   U32 targetLen = dsize_t(dStrlen( suffix ));
    if (targetLen == 0)
       return true;
    // else if the src string is empty, return false (empty src does not end with non-empty target)
@@ -1828,7 +1828,7 @@ DefineEngineFunction( detag, const char*, ( const char* str ),,
       if( word == NULL )
          return "";
          
-      dsize_t retLen = strlen(word + 1) + 1;
+      U32 retLen = dStrlen(word + 1) + 1;
       char* ret = Con::getReturnBuffer(retLen);
       dStrcpy( ret, word + 1, retLen );
       return ret;
@@ -1934,10 +1934,10 @@ DefineEngineStringlyVariadicFunction( error, void, 2, 0, "( string message... ) 
    "@param message Any number of string arguments.\n\n"
    "@ingroup Logging" )
 {
-   dsize_t len = 0;
-   dsize_t i;
+   U32 len = 0;
+   U32 i;
    for(i = 1; i < argc; i++)
-      len += dsize_t(dStrlen(argv[i]));
+      len += dStrlen(argv[i]);
 
    char *ret = Con::getReturnBuffer(len + 1);
    ret[0] = 0;
@@ -2474,7 +2474,7 @@ DefineEngineFunction( isDefined, bool, ( const char* varName, const char* varVal
    {
       static char scratchBuffer[4096];
 
-      dsize_t len = dsize_t(dStrlen(name));
+      U32 len = dStrlen(name);
       AssertFatal(len < sizeof(scratchBuffer)-1, "isDefined() - name too long");
       dMemcpy(scratchBuffer, name, len+1);
 

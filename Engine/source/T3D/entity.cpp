@@ -517,7 +517,7 @@ U32 Entity::packUpdate(NetConnection *con, U32 mask, BitStream *stream)
          if (mNetworkedComponents[i].updateState == NetworkedComponent::Adding)
          {
             const char* className = mComponents[mNetworkedComponents[i].componentIndex]->getClassName();
-            stream->writeString(className, strlen(className));
+            stream->writeString(className, dStrlen(className));
 
             mNetworkedComponents[i].updateState = NetworkedComponent::Updating;
          }

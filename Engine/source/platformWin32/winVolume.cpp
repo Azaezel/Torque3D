@@ -394,7 +394,7 @@ U32 Win32File::calculateChecksum()
 
    while ( fileSize > 0 )
    {      
-      U32 bytesRead = getMin( fileSize, bufSize );
+      U64 bytesRead = getMin( fileSize, bufSize );
       if ( read( buf, bytesRead ) != bytesRead )
       {
          close();
@@ -402,7 +402,7 @@ U32 Win32File::calculateChecksum()
       }
 
       fileSize -= bytesRead;
-      crc = CRC::calculateCRC(buf, bytesRead, crc);
+      crc = CRC::calculateCRC(buf, S32(bytesRead), crc);
    }   
 
    close();

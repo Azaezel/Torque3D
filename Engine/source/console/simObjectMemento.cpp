@@ -134,7 +134,7 @@ SimObject *SimObjectMemento::restore() const
             return NULL;
          U32 numCharsToLeftParen = pLeftParen - mState;
 
-         dsize_t tempBufferLen = dStrlen(mState) + uniqueNameLen + 1;
+         U32 tempBufferLen = dStrlen(mState) + uniqueNameLen + 1;
          tempBuffer = ( char* ) dMalloc( tempBufferLen );
          dMemcpy( tempBuffer, mState, numCharsToLeftParen );
          dMemcpy( &tempBuffer[ numCharsToLeftParen ], uniqueName, uniqueNameLen );

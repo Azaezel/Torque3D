@@ -722,7 +722,7 @@ bool Platform::createPath(const char *file)
    while((dir = dStrchr(fileName, '/')) != NULL)
    {
       TCHAR* pathptr = pathbuf;
-      dMemcpy( pathptr + pathLen, fileName, ( dir - fileName ) * sizeof( TCHAR ) );
+      memcpy( pathptr + pathLen, fileName, ( dir - fileName ) * sizeof( TCHAR ) );
       pathbuf[pathLen + dir-fileName] = 0;
  
       // ignore return value because we are fine with already existing directory

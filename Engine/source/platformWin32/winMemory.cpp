@@ -23,26 +23,26 @@
 #include "platformWin32/platformWin32.h"
 #include <xmmintrin.h>
 
-void* dMemcpy(void *dst, const void *src, dsize_t size)
+void* dMemcpy(void *dst, const void *src, U32 size)
 {
    return memcpy(dst,src,size);
 }
 
 
 //--------------------------------------
-void* dMemmove(void *dst, const void *src, dsize_t size)
+void* dMemmove(void *dst, const void *src, U32 size)
 {
    return memmove(dst,src,size);
 }
 
 //--------------------------------------
-void* dMemset(void *dst, S32 c, dsize_t size)
+void* dMemset(void *dst, S32 c, U32 size)
 {
    return memset(dst,c,size);
 }
 
 //--------------------------------------
-S32 dMemcmp(const void *ptr1, const void *ptr2, dsize_t len)
+S32 dMemcmp(const void *ptr1, const void *ptr2, U32 len)
 {
    return memcmp(ptr1, ptr2, len);
 }

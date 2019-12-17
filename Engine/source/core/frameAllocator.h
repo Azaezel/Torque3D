@@ -282,7 +282,7 @@ public:
    /// @name Vector-like Interface
    /// @{
    T *address() const { return mMemory; }
-   dsize_t size() const { return mNumObjectsInMemory; }
+   U32 size() const { return mNumObjectsInMemory; }
    /// @}
 };
 

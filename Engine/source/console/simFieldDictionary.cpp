@@ -401,7 +401,7 @@ void SimFieldDictionary::setFieldValue(StringTableEntry slotName, const char *va
 // the characters in <filter> are copied.
 void SimFieldDictionary::assignFrom(SimFieldDictionary *dict, const char* filter, bool no_replace)
 {
-   dsize_t filter_len = (filter) ? dStrlen(filter) : 0;
+   U32 filter_len = (filter) ? dStrlen(filter) : 0;
    if (filter_len == 0 && !no_replace)
    {
       assignFrom(dict);

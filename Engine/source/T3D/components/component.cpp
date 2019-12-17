@@ -553,7 +553,7 @@ const char * Component::getDescriptionText(const char *desc)
    // [tom, 1/12/2007] If it isn't a file, just do it the easy way
    if (!Platform::isFile(desc))
    {
-      dsize_t newDescLen = dStrlen(desc) + 1;
+      U32 newDescLen = dStrlen(desc) + 1;
       newDesc = new char[newDescLen];
       dStrcpy(newDesc, desc, newDescLen);
 

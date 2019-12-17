@@ -2851,8 +2851,8 @@ DefineEngineMethod( SimObject, getFieldValue, const char*, ( const char* fieldNa
       const char* leftBracket = dStrchr( fieldName, '[' );
       const char* rightBracket = &fieldName[ nameLen - 1 ];
       
-      const dsize_t fieldNameLen = getMin( leftBracket - fieldName , sizeof( fieldNameBuffer ) - 1 );
-      const dsize_t arrayIndexLen = getMin( rightBracket - leftBracket - 1 , sizeof( arrayIndexBuffer ) - 1 );
+      const U32 fieldNameLen = U32(getMin( leftBracket - fieldName , sizeof( fieldNameBuffer ) - 1 ));
+      const U32 arrayIndexLen = U32(getMin( rightBracket - leftBracket - 1 , sizeof( arrayIndexBuffer ) - 1 ));
       
       dMemcpy( fieldNameBuffer, fieldName, fieldNameLen );
       dMemcpy( arrayIndexBuffer, leftBracket + 1, arrayIndexLen );
@@ -2896,8 +2896,8 @@ DefineEngineMethod( SimObject, setFieldValue, bool, ( const char* fieldName, con
       const char* leftBracket = dStrchr( fieldName, '[' );
       const char* rightBracket = &fieldName[ nameLen - 1 ];
       
-      const dsize_t fieldNameLen = getMin( leftBracket - fieldName , sizeof( fieldNameBuffer ) - 1 );
-      const dsize_t arrayIndexLen = getMin( rightBracket - leftBracket - 1 , sizeof( arrayIndexBuffer ) - 1 );
+      const U32 fieldNameLen = U32(getMin( leftBracket - fieldName , sizeof( fieldNameBuffer ) - 1 ));
+      const U32 arrayIndexLen = U32(getMin( rightBracket - leftBracket - 1 , sizeof( arrayIndexBuffer ) - 1 ));
       
       dMemcpy( fieldNameBuffer, fieldName, fieldNameLen );
       dMemcpy( arrayIndexBuffer, leftBracket + 1, arrayIndexLen );

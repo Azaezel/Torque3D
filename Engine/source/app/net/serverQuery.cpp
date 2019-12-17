@@ -510,14 +510,14 @@ void queryMasterServer(U8 flags, const char* gameType, const char* missionType,
       // Update the active filter:
       if ( !sActiveFilter.gameType || dStrcmp( sActiveFilter.gameType, gameType ) != 0 )
       {
-         dsize_t gameTypeLen = dStrlen(gameType) + 1;
+         U32 gameTypeLen = dStrlen(gameType) + 1;
          sActiveFilter.gameType = (char*) dRealloc( sActiveFilter.gameType, gameTypeLen );
          dStrcpy( sActiveFilter.gameType, gameType, gameTypeLen );
       }
 
       if ( !sActiveFilter.missionType || dStrcmp( sActiveFilter.missionType, missionType ) != 0 )
       {
-         dsize_t missionTypeLen = dStrlen(missionType) + 1;
+         U32 missionTypeLen = dStrlen(missionType) + 1;
          sActiveFilter.missionType = (char*) dRealloc( sActiveFilter.missionType, missionTypeLen );
          dStrcpy( sActiveFilter.missionType, missionType, missionTypeLen );
       }
@@ -952,7 +952,7 @@ static void pushServerFavorites()
    NetAddress addr;
    const char* server = NULL;
    char buf[256], serverName[25], addrString[256];
-   dsize_t sz, len;
+   U32 sz, len;
    for ( S32 i = 0; i < count; i++ )
    {
       dSprintf( buf, sizeof( buf ), "pref::Client::ServerFavorite%d", i );
@@ -971,7 +971,7 @@ static void pushServerFavorites()
             Net::stringToAddress( addrString, &addr );
             ServerInfo* si = findOrCreateServerInfo( &addr );
             AssertFatal(si, "pushServerFavorites - failed to create Server Info!" );
-            dsize_t nameLen = strlen(serverName) + 1;
+            U32 nameLen = dStrlen(serverName) + 1;
             si->name = (char*) dRealloc( (void*) si->name, nameLen );
             dStrcpy( si->name, serverName, nameLen );
             si->isFavorite = true;
@@ -1056,7 +1056,7 @@ void addFakeServers( S32 howMany )
       newServer.maxPlayers = 64;
       char buf[256];
       dSprintf( buf, 255, "Fake server #%d", sNumFakeServers );
-      dsize_t nameLen = dStrlen(buf) + 1;
+      U32 nameLen = dStrlen(buf) + 1;
       newServer.name = (char*) dMalloc( nameLen );
       dStrcpy( newServer.name, buf, nameLen );
       newServer.gameType = (char*) dMalloc( 5 );
@@ -1755,7 +1755,7 @@ static void handleGameMasterInfoRequest( const NetAddress* address, U32 key, U8 
       out->write( playerCount );
 
       const char* guidList = Con::getVariable( "Server::GuidList" );
-      dsize_t bufLen = dStrlen(guidList) + 1;
+      U32 bufLen = dStrlen(guidList) + 1;
       char* buf = new char[bufLen];
       dStrcpy( buf, guidList, bufLen );
       char* temp = dStrtok( buf, "\t" );
@@ -1951,7 +1951,7 @@ static void handleGamePingResponse( const NetAddress* address, BitStream* stream
    stream->readString( buf );
    if ( !si->name )
    {
-      dsize_t bufLen = dStrlen(buf) + 1;
+      U32 bufLen = dStrlen(buf) + 1;
       si->name = (char*) dMalloc(bufLen);
       dStrcpy( si->name, buf, bufLen );
    }
@@ -2054,7 +2054,7 @@ static void handleGameInfoResponse( const NetAddress* address, BitStream* stream
    stream->readString( stringBuf );
    if ( !si->gameType || dStricmp( si->gameType, stringBuf ) != 0 )
    {
-      dsize_t gameTypeLen = dStrlen(stringBuf) + 1;
+      U32 gameTypeLen = dStrlen(stringBuf) + 1;
       si->gameType = (char*) dRealloc( (void*) si->gameType, gameTypeLen );
       dStrcpy( si->gameType, stringBuf, gameTypeLen );
 
@@ -2072,7 +2072,7 @@ static void handleGameInfoResponse( const NetAddress* address, BitStream* stream
    stream->readString( stringBuf );
    if ( !si->missionType || dStrcmp( si->missionType, stringBuf ) != 0 )
    {
-      dsize_t missionTypeLen = dStrlen(stringBuf) + 1;
+      U32 missionTypeLen = dStrlen(stringBuf) + 1;
       si->missionType = (char*) dRealloc( (void*) si->missionType, missionTypeLen );
       dStrcpy( si->missionType, stringBuf, missionTypeLen );
 
@@ -2094,7 +2094,7 @@ static void handleGameInfoResponse( const NetAddress* address, BitStream* stream
       *temp = '\0';
    if ( !si->missionName || dStrcmp( si->missionName, stringBuf ) != 0 )
    {
-      dsize_t missionNameLen = dStrlen(stringBuf) + 1;
+      U32 missionNameLen = dStrlen(stringBuf) + 1;
       si->missionName = (char*) dRealloc( (void*) si->missionName, missionNameLen );
       dStrcpy( si->missionName, stringBuf, missionNameLen );
    }
@@ -2164,7 +2164,7 @@ static void handleGameInfoResponse( const NetAddress* address, BitStream* stream
    stream->readString( stringBuf );
    if ( !si->statusString || ( isUpdate && dStrcmp( si->statusString, stringBuf ) != 0 ) )
    {
-      dsize_t infoLen = dStrlen(stringBuf) + 1;
+      U32 infoLen = dStrlen(stringBuf) + 1;
       si->infoString = (char*) dRealloc( (void*) si->infoString, infoLen );
       dStrcpy( si->infoString, stringBuf, infoLen );
    }
@@ -2173,7 +2173,7 @@ static void handleGameInfoResponse( const NetAddress* address, BitStream* stream
    readLongCString( stream, stringBuf );
    if ( !si->statusString || ( isUpdate && dStrcmp( si->statusString, stringBuf ) != 0 ) )
    {
-      dsize_t statusLen = dStrlen(stringBuf) + 1;
+      U32 statusLen = dStrlen(stringBuf) + 1;
       si->statusString = (char*) dRealloc( (void*) si->statusString, statusLen );
       dStrcpy( si->statusString, stringBuf, statusLen );
    }

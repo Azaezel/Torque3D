@@ -68,7 +68,7 @@ namespace TriListOpt
    public:
       LRUCacheModel() : mCacheHead(NULL) {}
       ~LRUCacheModel();
-      void enforceSize(const dsize_t maxSize, Vector<U32> &outTrisToUpdate);
+      void enforceSize(const U32 maxSize, Vector<U32> &outTrisToUpdate);
       void useVertex(const U32 vIdx, VertData *vData);
       S32 getCachePosition(const U32 vIdx);
    };
@@ -84,7 +84,7 @@ namespace TriListOpt
    /// @param outIndices Output index buffer
    ///
    /// @note Both 'indices' and 'outIndices' can point to the same memory.
-   void OptimizeTriangleOrdering(const dsize_t numVerts, const dsize_t numIndices, const U32 *indices, IndexType *outIndices);
+   void OptimizeTriangleOrdering(const U32 numVerts, const U32 numIndices, const U32 *indices, IndexType *outIndices);
 
    namespace FindVertexScore
    {

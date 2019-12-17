@@ -1573,7 +1573,7 @@ static void* realloc(void* mem, dsize_t size, const char* fileName, const U32 li
 
 dsize_t getMemoryUsed()
 {
-   U32 size = 0;
+   dsize_t size = 0;
 
    PageRecord* walk;
    for (walk = gPageList; walk; walk = walk->prevPage) {

@@ -213,7 +213,7 @@ S32 dStrnatcasecmp(const nat_char* a, const nat_char* b) {
 //------------------------------------------------------------------------------
 // non-standard string functions
 
-char *dStrdup_r(const char *src, const char *fileName, dsize_t lineNumber)
+char *dStrdup_r(const char *src, const char *fileName, U32 lineNumber)
 {
    U32 bufferLen = dStrlen(src) + 1;
    char *buffer = (char *)dMalloc_r(bufferLen, fileName, lineNumber);
@@ -262,7 +262,7 @@ const char* dStrichr( const char* str, char ch )
 // concatenates a list of src's onto the end of dst
 // the list of src's MUST be terminated by a NULL parameter
 // dStrcatl(dst, sizeof(dst), src1, src2, NULL);
-char* dStrcatl(char *dst, dsize_t dstSize, ...)
+char* dStrcatl(char *dst, U32 dstSize, ...)
 {
    const char* src = NULL;
    char *p = dst;
@@ -299,7 +299,7 @@ char* dStrcatl(char *dst, dsize_t dstSize, ...)
 // copy a list of src's into dst
 // the list of src's MUST be terminated by a NULL parameter
 // dStrccpyl(dst, sizeof(dst), src1, src2, NULL);
-char* dStrcpyl(char *dst, dsize_t dstSize, ...)
+char* dStrcpyl(char *dst, U32 dstSize, ...)
 {
    const char* src = NULL;
    char *p = dst;
@@ -384,7 +384,7 @@ char* dStrlwr(char *str)
 
 //------------------------------------------------------------------------------
 
-S32 dStrlcat(char *dst, const char *src, dsize_t dstSize)
+S32 dStrlcat(char *dst, const char *src, U32 dstSize)
 {
    //TODO: Do other platforms support strlcat in their libc
 #ifdef TORQUE_OS_MAC
@@ -394,19 +394,19 @@ S32 dStrlcat(char *dst, const char *src, dsize_t dstSize)
 
    return len;
 #else //TORQUE_OS_MAC
-   dsize_t dstLen = strlen(dst);
-   dsize_t srcLen = strlen(src);
-   dsize_t copyLen = srcLen;
+   U32 dstLen = dStrlen(dst);
+   U32 srcLen = dStrlen(src);
+   U32 copyLen = srcLen;
 
    //Check for buffer overflow and don't allow it. Warn on debug so we can fix it
    AssertWarn(dstLen + copyLen < dstSize, "Buffer too small in call to dStrlcat!");
-   if (dstLen + copyLen + dsize_t(1) > dstSize)
+   if (dstLen + copyLen + 1 > dstSize)
    {
-      copyLen = dstSize - dstLen - dsize_t(1);
+      copyLen = dstSize - dstLen - 1;
    }
 
    //Copy src after dst and null terminate
-   memcpy(dst + dstLen, src, copyLen);
+   dMemcpy(dst + dstLen, src, copyLen);
    dst[dstLen + copyLen] = 0;
 
    //Return the length of the string we would have generated
@@ -414,7 +414,7 @@ S32 dStrlcat(char *dst, const char *src, dsize_t dstSize)
 #endif //TORQUE_OS_MAC
 }
 
-S32 dStrlcpy(char *dst, const char *src, dsize_t dstSize)
+S32 dStrlcpy(char *dst, const char *src, U32 dstSize)
 {
    //TODO: Do other platforms support strlcpy in their libc
 #ifdef TORQUE_OS_MAC
@@ -424,18 +424,18 @@ S32 dStrlcpy(char *dst, const char *src, dsize_t dstSize)
 
    return len;
 #else //TORQUE_OS_MAC
-   dsize_t srcLen = strlen(src);
-   dsize_t copyLen = srcLen;
+   U32 srcLen = dStrlen(src);
+   U32 copyLen = srcLen;
 
    //Check for buffer overflow and don't allow it. Warn on debug so we can fix it
    AssertWarn(copyLen < dstSize, "Buffer too small in call to dStrlcpy!");
-   if (srcLen + dsize_t(1) > dstSize)
+   if (srcLen + 1 > dstSize)
    {
-      copyLen = dstSize - dsize_t(1);
+      copyLen = dstSize - 1;
    }
 
    //Copy src and null terminate
-   memcpy(dst, src, copyLen);
+   dMemcpy(dst, src, copyLen);
    dst[copyLen] = 0;
 
    //Return the length of the string we would have generated
@@ -582,7 +582,7 @@ char* dStristr( char* str1, const char* str2 )
 
    // Slow but at least we have it.
 
-   size_t str2len = strlen( str2 );
+   U32 str2len = dStrlen( str2 );
    while( *str1 )
    {
       if( strncasecmp( str1, str2, str2len ) == 0 )

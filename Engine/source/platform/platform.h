@@ -537,15 +537,15 @@ template<class T,class S> void dCopyArray(T *dst, const S *src, dsize_t size)
       dst[i] = (T)src[i];
 }
 
-extern void* dMemcpy(void *dst, const void *src, dsize_t size);
-extern void* dMemmove(void *dst, const void *src, dsize_t size);
-extern void* dMemset(void *dst, S32 c, dsize_t size);
-extern S32   dMemcmp(const void *ptr1, const void *ptr2, dsize_t size);
+extern void* dMemcpy(void *dst, const void *src, U32 size);
+extern void* dMemmove(void *dst, const void *src, U32 size);
+extern void* dMemset(void *dst, S32 c, U32 size);
+extern S32   dMemcmp(const void *ptr1, const void *ptr2, U32 size);
 
 // Special case of the above function when the arrays are the same type (use memcpy)
 template<class T> void dCopyArray(T *dst, const T *src, dsize_t size)
 {
-   dMemcpy(dst, src, size * sizeof(T));
+   memcpy(dst, src, size * sizeof(T));
 }
 
 /// The dALIGN macro ensures the passed declaration is

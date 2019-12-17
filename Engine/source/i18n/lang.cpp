@@ -42,7 +42,7 @@ LangFile::LangFile(const UTF8 *langName /* = NULL */)
 
 	if(langName)
 	{
-		dsize_t langNameLen = dStrlen(langName) + 1;
+      U32 langNameLen = dStrlen(langName) + 1;
 		mLangName = new UTF8 [langNameLen];
 		dStrcpy(mLangName, langName, langNameLen);
 	}
@@ -137,7 +137,7 @@ const UTF8 * LangFile::getString(U32 id)
 
 U32 LangFile::addString(const UTF8 *str)
 {
-	dsize_t newstrLen = dStrlen(str) + 1;
+   U32 newstrLen = dStrlen(str) + 1;
 	UTF8 *newstr = new UTF8 [newstrLen];
 	dStrcpy(newstr, str, newstrLen);
 	mStringTable.push_back(newstr);
@@ -158,7 +158,7 @@ void LangFile::setString(U32 id, const UTF8 *str)
 
    SAFE_DELETE_ARRAY(mStringTable[id]);
 
-	dsize_t newstrLen = dStrlen(str) + 1;
+   U32 newstrLen = dStrlen(str) + 1;
 	UTF8 *newstr = new UTF8 [newstrLen];
 	dStrcpy(newstr, str, newstrLen);
 	mStringTable[id] = newstr;
@@ -169,7 +169,7 @@ void LangFile::setLangName(const UTF8 *newName)
 	if(mLangName)
 		delete [] mLangName;
 	
-	dsize_t langNameLen = dStrlen(newName) + 1;
+   U32 langNameLen = dStrlen(newName) + 1;
 	mLangName = new UTF8 [langNameLen];
 	dStrcpy(mLangName, newName, langNameLen);
 }
@@ -179,7 +179,7 @@ void LangFile::setLangFile(const UTF8 *langFile)
 	if(mLangFile)
 		delete [] mLangFile;
 	
-	dsize_t langFileLen = dStrlen(langFile) + 1;
+	U32 langFileLen = dStrlen(langFile) + 1;
 	mLangFile = new UTF8 [langFileLen];
 	dStrcpy(mLangFile, langFile, langFileLen);
 }
@@ -354,7 +354,7 @@ DefineEngineMethod(LangTable, getString, const char *, (U32 id), ,
 	const char * str =	(const char*)object->getString(id);
 	if(str != NULL)
 	{
-		dsize_t retLen = dStrlen(str) + 1;
+      U32 retLen = dStrlen(str) + 1;
 		char * ret = Con::getReturnBuffer(retLen);
 		dStrcpy(ret, str, retLen);
 		return ret;
@@ -393,7 +393,7 @@ DefineEngineMethod(LangTable, getLangName, const char *, (S32 langId), , "(int l
 	const char * str = (const char*)object->getLangName(langId);
 	if(str != NULL)
 	{
-		dsize_t retLen = dStrlen(str) + 1;
+      U32 retLen = dStrlen(str) + 1;
 		char * ret = Con::getReturnBuffer(retLen);
 		dStrcpy(ret, str, retLen);
 		return ret;

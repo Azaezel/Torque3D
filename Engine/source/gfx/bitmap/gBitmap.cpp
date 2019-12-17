@@ -316,8 +316,8 @@ void GBitmap::allocateBitmap(const U32 in_width, const U32 in_height, const bool
 
    if (in_extrudeMipLevels == true) 
    {
-      dsize_t currWidth  = in_width;
-      dsize_t currHeight = in_height;
+      U32 currWidth  = in_width;
+      U32 currHeight = in_height;
 
       do 
       {
@@ -394,8 +394,8 @@ void GBitmap::allocateBitmapWithMips(const U32 in_width, const U32 in_height, co
 
    if (in_numMips != 0)
    {
-      dsize_t currWidth = in_width;
-      dsize_t currHeight = in_height;
+      U32 currWidth = in_width;
+      U32 currHeight = in_height;
 
       do
       {
@@ -469,8 +469,8 @@ void GBitmap::extrudeMipLevels(bool clearBorders)
    {
       for (U32 i = 1; i<mNumMipLevels; i++)
       {
-         dsize_t width = getWidth(i);
-         dsize_t height = getHeight(i);
+         U32 width = getWidth(i);
+         U32 height = getHeight(i);
          if (height<3 || width<3)
             // bmp is all borders at this mip level
             dMemset(getWritableBits(i),0,width*height*mBytesPerPixel);

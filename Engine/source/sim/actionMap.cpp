@@ -908,7 +908,7 @@ const char* ActionMap::getDeadZone( const char* device, const char* action )
             {
                char buf[64];
                dSprintf( buf, sizeof( buf ), "%g %g", mapNode->deadZoneBegin, mapNode->deadZoneEnd );
-               dsize_t returnLen = dStrlen(buf) + 1;
+               U32 returnLen = dStrlen(buf) + 1;
                char* returnString = Con::getReturnBuffer( returnLen );
                dStrcpy( returnString, buf, returnLen );
                return( returnString );

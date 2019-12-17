@@ -28,7 +28,7 @@
 namespace TriListOpt
 {
 
-void OptimizeTriangleOrdering(const dsize_t numVerts, const dsize_t numIndices, const U32 *indices, IndexType *outIndices)
+void OptimizeTriangleOrdering(const U32 numVerts, const U32 numIndices, const U32 *indices, IndexType *outIndices)
 {
    PROFILE_SCOPE(TriListOpt_OptimizeTriangleOrdering);
 
@@ -271,12 +271,12 @@ void LRUCacheModel::useVertex(const U32 vIdx, VertData *vData)
 
 //------------------------------------------------------------------------------
 
-void LRUCacheModel::enforceSize(const dsize_t maxSize, Vector<U32> &outTrisToUpdate)
+void LRUCacheModel::enforceSize(const U32 maxSize, Vector<U32> &outTrisToUpdate)
 {
    // Clear list of triangles to update scores for
    outTrisToUpdate.clear();
 
-   dsize_t length = 0;
+   U32 length = 0;
    LRUCacheEntry *next = mCacheHead;
    LRUCacheEntry *last = NULL;
    
@@ -329,7 +329,7 @@ void LRUCacheModel::enforceSize(const dsize_t maxSize, Vector<U32> &outTrisToUpd
 
 S32 LRUCacheModel::getCachePosition(const U32 vIdx)
 {
-   dsize_t length = 0;
+   U32 length = 0;
    LRUCacheEntry *next = mCacheHead;
    while(next != NULL)
    {

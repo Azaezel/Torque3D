@@ -39,7 +39,7 @@ void GFXVideoMode::parseFromString( const char *str )
       return;
 
    // Copy the string, as dStrtok is destructive
-   dsize_t tempBufLen = dStrlen(str) + 1;
+   U32 tempBufLen = dStrlen(str) + 1;
    char *tempBuf = new char[tempBufLen];
    dStrcpy( tempBuf, str, tempBufLen );
 

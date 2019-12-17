@@ -594,7 +594,7 @@ bool ParticleData::preload(bool server, String &errorStr)
 
         animTexFrames.clear();
 
-        dsize_t tokLen = dStrlen(animTexFramesString) + 1;
+        U32 tokLen = dStrlen(animTexFramesString) + 1;
         char* tokCopy = new char[tokLen];
         dStrcpy(tokCopy, animTexFramesString, tokLen);
 

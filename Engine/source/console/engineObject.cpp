@@ -173,7 +173,7 @@ void* EngineObject::operator new( size_t size TORQUE_TMM_ARGS_DECL )
 {
    AssertFatal( IEngineObjectPool::DEFAULT, "EngineObject::new - No default pool set!" );
 
-   void* ptr = IEngineObjectPool::DEFAULT->allocateObject( size TORQUE_TMM_ARGS );
+   void* ptr = IEngineObjectPool::DEFAULT->allocateObject(U32(size) TORQUE_TMM_ARGS );
    if( !ptr )
    {
       Platform::AlertOK( "Torque Memory Error", "Out of memory. Shutting down.\n");
@@ -192,14 +192,14 @@ void* EngineObject::operator new( size_t size, IEngineObjectPool* pool TORQUE_TM
 {
    AssertFatal( pool, "EngineObject::new - Got a NULL pool pointer!" );
 
-   void* ptr = pool->allocateObject( size TORQUE_TMM_ARGS );
+   void* ptr = pool->allocateObject(U32(size) TORQUE_TMM_ARGS );
    if( !ptr )
    {
       // Fall back to default pool.
       
       pool = IEngineObjectPool::DEFAULT;
       AssertFatal( pool, "EngineObject::new - No default pool set!" );
-      ptr = pool->allocateObject( size TORQUE_TMM_ARGS );
+      ptr = pool->allocateObject(U32(size) TORQUE_TMM_ARGS );
       
       if( !ptr )
       {

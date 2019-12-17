@@ -85,7 +85,7 @@ public:
    virtual void ToBuffer( void *destination, const void *source, const dsize_t size ) const
    {
       AssertFatal( size % 3 == 0, "Bad buffer size for DXT5nm Swizzle" );
-      const S32 pixels = size / 3;
+      const S32 pixels = U32(size) / 3;
 
       volatile const U8 *srcU8 = reinterpret_cast<const U8 *>( source );
       volatile U8 *dstU8 = reinterpret_cast<U8 *>( destination );

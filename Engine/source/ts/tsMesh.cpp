@@ -603,7 +603,7 @@ void TSMesh::support( S32 frame, const Point3F &v, F32 *currMaxDP, Point3F *curr
    m_point3F_bulk_dot( &v.x,
                        &mVertexData.getBase(firstVert).vert().x,
                        vertsPerFrame,
-                       mVertexData.vertSize(),
+                       U32(mVertexData.vertSize()),
                        pDots );
 
    F32 localdp = *currMaxDP;
@@ -1056,7 +1056,7 @@ void TSMesh::computeBounds( const MatrixF &transform, Box3F &bounds, S32 frame, 
    if(mVerts.size() == 0 && mVertexData.isReady() && mVertexData.size() > 0)
    {
       baseVert = &mVertexData.getBase(0).vert();
-      stride = mVertexData.vertSize();
+      stride = U32(mVertexData.vertSize());
 
       if ( frame < 0 )
          numVerts = mNumVerts;
@@ -1561,7 +1561,7 @@ void TSSkinMesh::computeBounds( const MatrixF &transform, Box3F &bounds, S32 fra
    else
    {
       Point3F *vertStart = reinterpret_cast<Point3F *>(mVertexData.address());
-      TSMesh::computeBounds( vertStart, mVertexData.size(), mVertexData.vertSize(), transform, bounds, center, radius );
+      TSMesh::computeBounds( vertStart, mVertexData.size(), U32(mVertexData.vertSize()), transform, bounds, center, radius );
    }
 }
 

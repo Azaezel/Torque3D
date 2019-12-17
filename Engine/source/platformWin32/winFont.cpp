@@ -174,7 +174,7 @@ bool WinFont::create(const char *name, dsize_t size, U32 charset /* = TGE_ANSI_C
 
 #ifdef UNICODE
    const UTF16* n = nameStr.utf16();
-   mFont = CreateFont(size,0,0,0,weight,doItalic,0,0,DEFAULT_CHARSET,OUT_TT_PRECIS,0,PROOF_QUALITY,0,n);
+   mFont = CreateFont(S32(size),0,0,0,weight,doItalic,0,0,DEFAULT_CHARSET,OUT_TT_PRECIS,0,PROOF_QUALITY,0,n);
 #else
    mFont = CreateFont(size,0,0,0,weight,doItalic,0,0,charsetMap[charset],OUT_TT_PRECIS,0,PROOF_QUALITY,0,name);
 #endif

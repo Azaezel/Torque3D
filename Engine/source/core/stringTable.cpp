@@ -142,7 +142,7 @@ StringTableEntry _StringTable::insert(const char* _val, const bool caseSens)
    }
    char *ret = 0;
    if(!*walk) {
-      dsize_t valLen = dStrlen(val) + 1;
+      U32 valLen = dStrlen(val) + 1;
       *walk = (Node *) mempool.alloc(sizeof(Node));
       (*walk)->next = 0;
       (*walk)->val = (char *) mempool.alloc(valLen);

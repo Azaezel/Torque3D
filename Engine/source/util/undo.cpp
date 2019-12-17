@@ -545,7 +545,7 @@ DefineEngineMethod(UndoManager, getNextUndoName, const char *, (),, "UndoManager
    const char *name = object->getNextUndoName();
    if(!name)
       return NULL;
-   dsize_t retLen = dStrlen(name) + 1;
+   U32 retLen = dStrlen(name) + 1;
    char *ret = Con::getReturnBuffer(retLen);
    dStrcpy(ret, name, retLen);
    return ret;
@@ -557,7 +557,7 @@ DefineEngineMethod(UndoManager, getNextRedoName, const char *, (),, "UndoManager
    const char *name = object->getNextRedoName();
    if(!name)
       return NULL;
-   dsize_t retLen = dStrlen(name) + 1;
+   U32 retLen = dStrlen(name) + 1;
    char *ret = Con::getReturnBuffer(retLen);
    dStrcpy(ret, name, retLen);
    return ret;

@@ -617,7 +617,7 @@ DefineEngineFunction(fileBase, String, ( const char* fileName ),,
       path = szPathCopy;
    else
       path++;
-   dsize_t retLen = strlen(path) + 1;
+   U32 retLen = dStrlen(path) + 1;
    char *ret = Con::getReturnBuffer(retLen);
    dStrcpy(ret, path, retLen);
    char *ext = dStrrchr(ret, '.');
@@ -633,7 +633,7 @@ DefineEngineFunction(fileName, String, ( const char* fileName ),,
    "@return String containing the file name, minus the path\n"
    "@ingroup FileSystem")
 {
-   dsize_t pathLen = strlen( fileName );
+   U32 pathLen = dStrlen( fileName );
    FrameTemp<char> szPathCopy( pathLen + 1);
 
    dStrcpy( szPathCopy, fileName, pathLen + 1 );
@@ -644,7 +644,7 @@ DefineEngineFunction(fileName, String, ( const char* fileName ),,
       name = szPathCopy;
    else
       name++;
-   dsize_t retLen = strlen(name) + 1;
+   U32 retLen = dStrlen(name) + 1;
    char *ret = Con::getReturnBuffer(retLen);
    dStrcpy(ret, name, retLen);
    return ret;

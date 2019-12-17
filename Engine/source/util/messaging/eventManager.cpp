@@ -288,7 +288,7 @@ bool EventManager::subscribe(SimObject *callbackObj, const char* event, const ch
    }
    else
    {
-      dsize_t cbLen = dStrlen(callback) + 1;
+      U32 cbLen = dStrlen(callback) + 1;
       cb = new char[cbLen];
       dStrcpy(cb, callback, cbLen);
    }

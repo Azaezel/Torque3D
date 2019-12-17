@@ -500,7 +500,7 @@ void* String::StringData::operator new( size_t size, U32 len )
    str->mLength      = len;
 
 #ifdef TORQUE_DEBUG
-   dFetchAndAdd( sgStringMemBytes, size + len * sizeof(StringChar) );
+   dFetchAndAdd( sgStringMemBytes, U32(size + len * sizeof(StringChar)) );
    dFetchAndAdd( sgStringInstances, 1 );
 #endif
 
@@ -523,12 +523,12 @@ void String::StringData::operator delete(void *ptr)
 void* String::StringData::operator new( size_t size, U32 len, DataChunker& chunker )
 {
    AssertFatal( len != 0, "String::StringData::operator new() - string must not be empty" );
-   StringData *str = static_cast<StringData*>( chunker.alloc( size + len * sizeof(StringChar) ) );
+   StringData *str = static_cast<StringData*>( chunker.alloc(U32(size + len * sizeof(StringChar)) ) );
 
    str->mLength      = len;
 
 #ifdef TORQUE_DEBUG
-   dFetchAndAdd( sgStringMemBytes, size + len * sizeof(StringChar) );
+   dFetchAndAdd( sgStringMemBytes, U32(size + len * sizeof(StringChar)) );
    dFetchAndAdd( sgStringInstances, 1 );
 #endif
 
