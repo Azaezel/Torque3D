@@ -227,6 +227,10 @@ class Box3F : public BoxBase
 
       /// A null box of zero size.
       static const Box3F Zero;
+
+      /// Unit boxes
+      static const Box3F Unit;
+      static const Box3F CenteredUnit;
 };
 
 inline Box3F::Box3F(const Point3F& in_rMin, const Point3F& in_rMax, const bool in_overrideCheck)

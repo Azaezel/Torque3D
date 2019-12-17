@@ -26,7 +26,9 @@
 
 const Box3F Box3F::Invalid( F32_MAX, F32_MAX, F32_MAX, -F32_MAX, -F32_MAX, -F32_MAX );
 const Box3F Box3F::Max( -F32_MAX, -F32_MAX, -F32_MAX, F32_MAX, F32_MAX, F32_MAX );
-const Box3F Box3F::Zero( 0, 0, 0, 0, 0, 0 );
+const Box3F Box3F::Zero( 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+const Box3F Box3F::Unit(0.0f, 0.0f, 0.0f, 1, 1, 1);
+const Box3F Box3F::CenteredUnit(-0.5f, -0.5f, -0.5f, 0.5f, 0.5f, 0.5f);
 
 
 //-----------------------------------------------------------------------------
