@@ -72,7 +72,7 @@ class ThreadSafeRefCount
 
    protected:
 
-      U32            mRefCount = 0;  ///< Reference count and claim bit.  Note that this increments in steps of two.
+      U32            mRefCount;  ///< Reference count and claim bit.  Note that this increments in steps of two.
 
       static U32     decrementAndTestAndSet( U32& refCount );
 };
