@@ -56,16 +56,16 @@ struct LightFlareState
    void clear();
 
    /// Object calling LightFlareData::prepRender fills these in!
-   F32 scale;              
-   F32 fullBrightness;
-   MatrixF lightMat;
-   LightInfo *lightInfo;
-   F32 worldRadius;
+   F32 scale = 1.0f;
+   F32 fullBrightness = 1.0f;
+   MatrixF lightMat = MatrixF::Identity;
+   LightInfo *lightInfo = NULL;
+   F32 worldRadius = 1.0f;
 
    /// Used internally by LightFlareData!
-   U32 visChangedTime;
-   bool visible;   
-   F32 occlusion;
+   U32 visChangedTime = 0;
+   bool visible = true;
+   F32 occlusion = 0.0f;
    GFXVertexBufferHandle<GFXVertexPCT> vertBuffer;   
    GFXOcclusionQueryHandle occlusionQuery;
    GFXOcclusionQueryHandle fullPixelQuery;

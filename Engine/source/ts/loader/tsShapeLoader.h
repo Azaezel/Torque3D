@@ -102,7 +102,7 @@ public:
 
 protected:
    // Variables used during loading that must be held until the shape is deleted
-   TSShape*                      shape;
+   TSShape*                      shape = NULL;
    Vector<AppMesh*>              appMeshes;
 
    // Variables used during loading, but that can be discarded afterwards
