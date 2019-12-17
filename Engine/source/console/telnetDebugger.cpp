@@ -863,7 +863,7 @@ void TelnetDebugger::evaluateExpression(const char *tag, S32 frame, const char *
 
    // Build a buffer just big enough for this eval.
    const char* format = "return %s;";
-   dsize_t len = dStrlen( format ) + dStrlen( evalBuffer );
+   U32 len = dStrlen( format ) + dStrlen( evalBuffer );
    char* buffer = new char[ len ];
    dSprintf( buffer, len, format, evalBuffer );
 

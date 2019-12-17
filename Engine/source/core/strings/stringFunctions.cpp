@@ -410,7 +410,7 @@ S32 dStrlcat(char *dst, const char *src, dsize_t dstSize)
    dst[dstLen + copyLen] = 0;
 
    //Return the length of the string we would have generated
-   return dstLen + srcLen;
+   return S32(dstLen + srcLen);
 #endif //TORQUE_OS_MAC
 }
 
@@ -424,7 +424,7 @@ S32 dStrlcpy(char *dst, const char *src, dsize_t dstSize)
 
    return len;
 #else //TORQUE_OS_MAC
-   dsize_t srcLen = dStrlen(src);
+   dsize_t srcLen = strlen(src);
    dsize_t copyLen = srcLen;
 
    //Check for buffer overflow and don't allow it. Warn on debug so we can fix it
@@ -439,7 +439,7 @@ S32 dStrlcpy(char *dst, const char *src, dsize_t dstSize)
    dst[copyLen] = 0;
 
    //Return the length of the string we would have generated
-   return srcLen;
+   return S32(srcLen);
 #endif //TORQUE_OS_MAC
 }
 
@@ -582,7 +582,7 @@ char* dStristr( char* str1, const char* str2 )
 
    // Slow but at least we have it.
 
-   U32 str2len = strlen( str2 );
+   size_t str2len = strlen( str2 );
    while( *str1 )
    {
       if( strncasecmp( str1, str2, str2len ) == 0 )

@@ -668,7 +668,7 @@ DefineEngineFunction( strreplace, const char*, ( const char* source, const char*
    }
    dsize_t retLen = dsize_t(dStrlen(source)) + 1 + (toLen - fromLen) * count;
    char *ret = Con::getReturnBuffer(retLen);
-   U32 scanp = 0;
+   dsize_t scanp = 0;
    dsize_t dstp = 0;
    for(;;)
    {
@@ -1828,7 +1828,7 @@ DefineEngineFunction( detag, const char*, ( const char* str ),,
       if( word == NULL )
          return "";
          
-      dsize_t retLen = dsize_t(dStrlen(word + 1)) + 1;
+      dsize_t retLen = strlen(word + 1) + 1;
       char* ret = Con::getReturnBuffer(retLen);
       dStrcpy( ret, word + 1, retLen );
       return ret;

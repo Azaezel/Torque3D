@@ -952,7 +952,7 @@ static void pushServerFavorites()
    NetAddress addr;
    const char* server = NULL;
    char buf[256], serverName[25], addrString[256];
-   U32 sz, len;
+   dsize_t sz, len;
    for ( S32 i = 0; i < count; i++ )
    {
       dSprintf( buf, sizeof( buf ), "pref::Client::ServerFavorite%d", i );
@@ -971,7 +971,7 @@ static void pushServerFavorites()
             Net::stringToAddress( addrString, &addr );
             ServerInfo* si = findOrCreateServerInfo( &addr );
             AssertFatal(si, "pushServerFavorites - failed to create Server Info!" );
-            dsize_t nameLen = dStrlen(serverName) + 1;
+            dsize_t nameLen = strlen(serverName) + 1;
             si->name = (char*) dRealloc( (void*) si->name, nameLen );
             dStrcpy( si->name, serverName, nameLen );
             si->isFavorite = true;
