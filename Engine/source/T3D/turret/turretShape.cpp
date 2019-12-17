@@ -114,14 +114,14 @@ TurretShapeData::TurretShapeData()
 
    headingNode = -1;
    pitchNode = -1;
-
-   for (U32 i=0; i<NumMirrorDirectionNodes; ++i)
+   U32 i=0;
+   for (i=0; i<NumMirrorDirectionNodes; ++i)
    {
       pitchNodes[i] = -1;
       headingNodes[i] = -1;
    }
 
-   for (U32 i=0; i<ShapeBase::MaxMountedImages; ++i)
+   for (i=0; i<ShapeBase::MaxMountedImages; ++i)
    {
       weaponMountNode[i] = -1;
    }
@@ -277,8 +277,10 @@ TurretShape::TurretShape()
 
    mRespawn = false;
 
-   mPitchThread = 0;
-   mHeadingThread = 0;
+   mRecoilThread = NULL;
+   mImageStateThread = NULL;
+   mPitchThread = NULL;
+   mHeadingThread = NULL;
 
    mSubclassTurretShapeHandlesScene = false;
 

@@ -51,7 +51,7 @@ private:
     inline bool parseElement( TiXmlElement* pXmlElement, TamlVisitor& visitor );
     inline bool parseAttributes( TiXmlElement* pXmlElement, TamlVisitor& visitor );
 
-    bool mDocumentDirty;
+    bool mDocumentDirty = false;
 };
 
 #endif // _TAML_XMLPARSER_H_

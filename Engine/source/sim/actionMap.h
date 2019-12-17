@@ -88,8 +88,8 @@ class ActionMap : public SimObject
    /// Used to represent a devices.
    struct DeviceMap
    {
-      U32 deviceType;
-      U32 deviceInst;
+      U32 deviceType = 0;
+      U32 deviceInst = 0;
 
       Vector<Node> nodeMap;
       DeviceMap() {

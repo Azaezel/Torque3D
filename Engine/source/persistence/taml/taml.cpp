@@ -148,7 +148,8 @@ ImplementEnumType(_TamlFormatMode,
       mAutoFormat(true),
       mProgenitorUpdate(true),
       mAutoFormatBinaryExtension("baml"),
-      mAutoFormatJSONExtension("json")
+      mAutoFormatJSONExtension("json"),
+      mMasterNodeId(0)
    {
       // Reset the file-path buffer.
       mFilePathBuffer[0] = 0;

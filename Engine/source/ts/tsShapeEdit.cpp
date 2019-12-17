@@ -522,7 +522,7 @@ template<class T> S32 eraseStates(Vector<T>& vec, const TSIntegerSet& matters, S
    if (count)
    {
       if ((dest + count) < vec.size())
-         dCopyArray(&vec[dest], &vec[dest + count], vec.size() - (dest + count));
+         dCopyArray(&vec[dest], &vec[dest + count], dsize_t(vec.size() - (dest + count)));
       vec.decrement(count);
    }
    return count;

@@ -253,7 +253,7 @@ public:
       Guaranteed = 1,
       Unguaranteed = 2
    } mGuaranteeType;
-   NetConnectionId mSourceId;
+   NetConnectionId mSourceId = 0;
 
    void incRef()
    {
@@ -273,7 +273,7 @@ public:
    /// @{
 
    ///
-   NetEvent() { mGuaranteeType = GuaranteedOrdered; }
+   NetEvent() { mGuaranteeType = GuaranteedOrdered; mSourceId = 0; }
    virtual ~NetEvent();
 
    virtual void write(NetConnection *ps, BitStream *bstream) = 0;

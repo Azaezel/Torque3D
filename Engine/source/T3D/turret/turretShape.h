@@ -117,9 +117,9 @@ protected:
 
    // Client interpolation data for turret heading and pitch
    struct TurretStateDelta {
-      Point3F rot;
-      VectorF rotVec;
-      F32     dt;
+      Point3F rot = Point3F::Zero;
+      VectorF rotVec = VectorF::Zero;
+      F32     dt = 0.0f;
    };
    TurretStateDelta mTurretDelta;
 

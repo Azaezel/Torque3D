@@ -232,12 +232,12 @@ struct PlayerData: public ShapeBaseData {
       } dir;                  ///< Default direction
    };
    struct ActionAnimation {
-      const char* name;       ///< Sequence name
-      S32      sequence;      ///< Sequence index
-      VectorF  dir;           ///< Dir of animation ground transform
-      F32      speed;         ///< Speed in m/s
-      bool     velocityScale; ///< Scale animation by velocity
-      bool     death;         ///< Are we dying?
+      const char* name = "";           ///< Sequence name
+      S32      sequence = 0;           ///< Sequence index
+      VectorF  dir = VectorF::UnitZ;   ///< Dir of animation ground transform
+      F32      speed = 1.0f;           ///< Speed in m/s
+      bool     velocityScale = false;  ///< Scale animation by velocity
+      bool     death = false;          ///< Are we dying?
    };
    enum {
       // *** WARNING ***
@@ -416,7 +416,7 @@ protected:
    /// Client interpolation/warp data
    struct StateDelta {
       Move move;                    ///< Last move from server
-      F32 dt;                       ///< Last interpolation time
+      F32 dt = 0.0f;                ///< Last interpolation time
       /// @name Interpolation data
      /// @{
 
@@ -431,7 +431,7 @@ protected:
      /// @name Warp data
      /// @{
 
-      S32 warpTicks;
+      S32 warpTicks  =0;
       Point3F warpOffset;
       Point3F rotOffset;
      /// @}

@@ -135,10 +135,10 @@ class AsyncPacketQueue
 
       /// The output stream that this queue feeds into.
       Consumer mConsumer;
-
+#ifdef TORQUE_DEBUG
       /// Total number of packets queued so far.
       U32 mTotalQueuedPackets;
-      
+#endif
    public:
 
       /// Construct an AsyncPacketQueue of the given length.
@@ -305,9 +305,9 @@ bool AsyncPacketQueue< Packet, TimeSource, Consumer, Tick >::submitPacket( Packe
    mTotalQueuedTicks = packetEndPos;
    if( isLast && !mTotalTicks )
       mTotalTicks = mTotalQueuedTicks;
-      
+#ifdef TORQUE_DEBUG
    mTotalQueuedPackets ++;
-   
+#endif
    return !dropPacket;
 }
 

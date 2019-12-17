@@ -36,7 +36,7 @@
 class AppSequence
 {
 public:
-   F32 fps;
+   F32 fps = 60.f; //see TSShapeLoader::MaxFrameRate;
 
 public:
    AppSequence() { }

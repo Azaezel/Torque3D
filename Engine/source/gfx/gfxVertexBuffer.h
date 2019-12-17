@@ -53,11 +53,11 @@ public:
    /// Device this vertex buffer was allocated on.
    GFXDevice *mDevice;
 
-   bool  isLocked;
-   U32   lockedVertexStart;
-   U32   lockedVertexEnd;
-   void* lockedVertexPtr;
-   U32   mVolatileStart;
+   bool  isLocked = false;
+   U32   lockedVertexStart = 0;
+   U32   lockedVertexEnd = 0;
+   void* lockedVertexPtr = nullptr;
+   U32   mVolatileStart = 0;
 
    GFXVertexBuffer(  GFXDevice *device, 
                      U32 numVerts, 

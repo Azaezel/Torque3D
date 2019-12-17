@@ -71,8 +71,9 @@ protected:
 
    struct DelegateLink
    {
-      DelegateLink *next,*prev;
-      F32 mOrder;
+      DelegateLink* next = NULL;
+      DelegateLink *prev = NULL;
+      F32 mOrder = 0.5f;
 
       void insert(DelegateLink* node, F32 order);
       void unlink();

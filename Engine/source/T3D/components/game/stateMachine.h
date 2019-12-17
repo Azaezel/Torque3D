@@ -41,12 +41,12 @@ class StateMachine
 public:
    struct StateField
    {
-      StringTableEntry name;
+      StringTableEntry name = "";
       
-      bool 			 triggerBoolVal;
-      float 		 triggerNumVal;
-      Point3F 		 triggerVectorVal;
-      String 		 triggerStringVal;
+      bool 			 triggerBoolVal = false;
+      float 		 triggerNumVal = 0.0f;
+      Point3F 		 triggerVectorVal = Point3F::Zero;
+      String 		 triggerStringVal = "";
 
       enum Type
       {
@@ -54,14 +54,14 @@ public:
          NumberType,
          VectorType,
          StringType
-      }fieldType;
+      }fieldType = StringType;
    };
 
    struct UniqueReference
    {
-      SimObject* referenceObj;
-      const char* referenceVar;
-      const char* uniqueName;
+      SimObject* referenceObj = NULL;
+      const char* referenceVar = "";
+      const char* uniqueName = "";
    };
 
    struct StateTransition
@@ -84,13 +84,13 @@ public:
 
          StateField field;
 
-         TriggerValueTarget   triggerComparitor;
+         TriggerValueTarget   triggerComparitor = Equals;
 
-         UniqueReference      *valUniqueRef;
+         UniqueReference      *valUniqueRef = NULL;
       };
 
-      StringTableEntry	mName;
-      StringTableEntry	mStateTarget;
+      StringTableEntry	mName = "";
+      StringTableEntry	mStateTarget = "";
       Vector<Condition>	mTransitionRules;
    };
 
@@ -98,9 +98,9 @@ public:
    {
       Vector<StateTransition> mTransitions;
 
-      StringTableEntry stateName;
+      StringTableEntry stateName = "";
 
-      StringTableEntry callbackName;
+      StringTableEntry callbackName = "";
    };
 
    StringTableEntry		mStateMachineFile;

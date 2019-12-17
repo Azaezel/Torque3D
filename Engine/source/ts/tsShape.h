@@ -146,19 +146,19 @@ class TSShape
    /// applied after non-blended sequences.
    struct Sequence
    {
-      S32 nameIndex;
-      S32 numKeyframes;
-      F32 duration;
-      S32 baseRotation;
-      S32 baseTranslation;
-      S32 baseScale;
-      S32 baseObjectState;
-      S32 baseDecalState; // DEPRECATED
-      S32 firstGroundFrame;
-      S32 numGroundFrames;
-      S32 firstTrigger;
-      S32 numTriggers;
-      F32 toolBegin;
+      S32 nameIndex = 0;
+      S32 numKeyframes = 0;
+      F32 duration = 0.0f;
+      S32 baseRotation = 0;
+      S32 baseTranslation = 0;
+      S32 baseScale = 1;
+      S32 baseObjectState = 0;
+      S32 baseDecalState = 0; // DEPRECATED
+      S32 firstGroundFrame = 0;
+      S32 numGroundFrames = 0;
+      S32 firstTrigger = 0;
+      S32 numTriggers = 0;
+      F32 toolBegin = 0.0f;
 
       /// @name Bitsets
       /// These bitsets code whether this sequence cares about certain aspects of animation

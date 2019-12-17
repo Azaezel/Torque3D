@@ -126,12 +126,10 @@ LightFlareData::LightFlareData()
 {
    dMemset( mElementRect, 0, sizeof( RectF ) * MAX_ELEMENTS );   
    dMemset( mElementScale, 0, sizeof( F32 ) * MAX_ELEMENTS );
+   dMemset( mElementDist, -1, sizeof(F32) * MAX_ELEMENTS);   
    dMemset( mElementTint, 0, sizeof( LinearColorF ) * MAX_ELEMENTS );
    dMemset( mElementRotate, 0, sizeof( bool ) * MAX_ELEMENTS );
    dMemset( mElementUseLightColor, 0, sizeof( bool ) * MAX_ELEMENTS );   
-
-   for ( U32 i = 0; i < MAX_ELEMENTS; i++ )   
-      mElementDist[i] = -1.0f;   
 }
 
 LightFlareData::~LightFlareData()

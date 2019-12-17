@@ -102,16 +102,16 @@ class ShapeBaseConvex : public Convex
    friend class RigidShape;
 
   protected:
-   ShapeBase*  pShapeBase;
-   MatrixF*    nodeTransform;
+   ShapeBase*  pShapeBase = NULL;
+   MatrixF*    nodeTransform = NULL;
 
   public:
-   MatrixF*    transform;
-   U32         hullId;
-   Box3F       box;
+   MatrixF*    transform = NULL;
+   U32         hullId = 0;
+   Box3F       box = Box3F::Unit;
 
   public:
-   ShapeBaseConvex() { mType = ShapeBaseConvexType; nodeTransform = 0; }
+   ShapeBaseConvex() { mType = ShapeBaseConvexType;}
    ShapeBaseConvex(const ShapeBaseConvex& cv) {
       mObject    = cv.mObject;
       pShapeBase = cv.pShapeBase;

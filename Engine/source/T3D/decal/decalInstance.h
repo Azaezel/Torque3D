@@ -43,34 +43,34 @@ class DecalInstance
 {
    public:
 
-      DecalData *mDataBlock;
+      DecalData *mDataBlock = NULL;
 
-      Point3F mPosition;
-      Point3F mNormal;
-      Point3F mTangent;
-      F32 mRotAroundNormal;   
-      F32 mSize;
+      Point3F mPosition = Point3F::Zero;
+      Point3F mNormal = Point3F::UnitX;
+      Point3F mTangent = Point3F::UnitZ;
+      F32 mRotAroundNormal = 0.0f;   
+      F32 mSize = 1.0f;
 
-      U32 mCreateTime;
-      F32 mVisibility;
+      U32 mCreateTime; //set at creation
+      F32 mVisibility = 1.0f;
 
-      F32 mLastAlpha;
+      F32 mLastAlpha = 1.0f;
 
-      U32 mTextureRectIdx;      
+      U32 mTextureRectIdx = 0;      
 
-      DecalVertex *mVerts;
-      U16 *mIndices;
+      DecalVertex *mVerts = NULL;
+      U16 *mIndices = NULL;
 
-      U32 mVertCount;
-      U32 mIndxCount;
+      U32 mVertCount = 0;
+      U32 mIndxCount = 0;
 
-      U8 mFlags;
+      U8 mFlags = 0;
 
-      U8 mRenderPriority;
+      U8 mRenderPriority = 1;
 
-      S32 mId;
+      S32 mId = -1;
 
-      GFXTexHandle *mCustomTex;
+      GFXTexHandle *mCustomTex = NULL;
 
       void getWorldMatrix( MatrixF *outMat, bool flip = false );
       
@@ -87,7 +87,7 @@ class DecalInstance
       /// Calculates the size of this decal onscreen in pixels, used for LOD.
       F32 calcPixelSize( U32 viewportHeight, const Point3F &cameraPos, F32 worldToScreenScaleY ) const;
    		
-	   DecalInstance() : mId(-1) {}   
+      DecalInstance() { mCreateTime = Sim::getCurrentTime(); }
 };
 
 #endif // _DECALINSTANCE_H_

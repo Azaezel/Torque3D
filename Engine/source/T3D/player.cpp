@@ -267,14 +267,20 @@ PlayerData::PlayerData()
 
    // Used for first person image rendering
    imageAnimPrefixFP = StringTable->EmptyString();
-   for (U32 i=0; i<ShapeBase::MaxMountedImages; ++i)
+
+   dMemset(mCRCFP, 0, sizeof(mCRCFP));
+   dMemset(mValidShapeFP, false, sizeof(mValidShapeFP));
+   U32 i = 0;
+   for (i=0; i<ShapeBase::MaxMountedImages; ++i)
    {
       shapeNameFP[i] = StringTable->EmptyString();
-      mCRCFP[i] = 0;
-      mValidShapeFP[i] = false;
    }
-
+   for (i = 0; i < Recoil::NumRecoilSequences; ++i)
+   {
+      recoilSequence[i] -1;
+   }
    pickupRadius = 0.0f;
+   pickupDelta = 0.0f;
    minLookAngle = -1.4f;
    maxLookAngle = 1.4f;
    maxFreelookAngle = 3.0f;
@@ -287,6 +293,7 @@ PlayerData::PlayerData()
 
    maxStepHeight = 1.0f;
    runSurfaceAngle = 80.0f;
+   runSurfaceCos = mCos(mDegToRad(runSurfaceAngle));
 
    fallingSpeedThreshold = -10.0f;
 
@@ -308,6 +315,7 @@ PlayerData::PlayerData()
    jumpEnergyDrain = 0.0f;
    minJumpEnergy = 0.0f;
    jumpSurfaceAngle = 78.0f;
+   jumpSurfaceCos = mCos(mDegToRad(jumpSurfaceAngle));
    jumpDelay = 30;
    minJumpSpeed = 500.0f;
    maxJumpSpeed = 2.0f * minJumpSpeed;
@@ -383,9 +391,7 @@ PlayerData::PlayerData()
    boxHeadRightPercentage = 1;
    boxHeadBackPercentage  = 0;
    boxHeadFrontPercentage = 1;
-
-   for (S32 i = 0; i < MaxSounds; i++)
-      sound[i] = NULL;
+   dMemset(sound, 0, sizeof(sound));
 
    footPuffEmitter = NULL;
    footPuffID = 0;
@@ -425,6 +431,7 @@ PlayerData::PlayerData()
    physicsPlayerType = StringTable->EmptyString();
 
    dMemset( actionList, 0, sizeof(actionList) );
+   dMemset(spineNode, 0, sizeof(spineNode));   
 }
 
 bool PlayerData::preload(bool server, String &errorStr)

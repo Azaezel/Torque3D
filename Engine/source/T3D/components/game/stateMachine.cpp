@@ -33,6 +33,7 @@ StateMachine::StateMachine()
 
    mStateMachineFile = StringTable->EmptyString();
 
+   mCurCreateSuperState = nullptr;
    mCurCreateState = nullptr;
 }
 

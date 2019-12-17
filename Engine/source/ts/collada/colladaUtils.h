@@ -875,8 +875,8 @@ struct AnimData
 
    _SourceReader  interpolation;
 
-   U32 targetValueOffset;        ///< Offset into the target element (for arrays of values)
-   U32 targetValueCount;         ///< Number of values animated (from OUTPUT source array)
+   U32 targetValueOffset = 0;        ///< Offset into the target element (for arrays of values)
+   U32 targetValueCount = 0;         ///< Number of values animated (from OUTPUT source array)
 
    /// Get the animation channels for the Collada element (if any)
    static AnimChannels* getAnimChannels(const daeElement* element)
