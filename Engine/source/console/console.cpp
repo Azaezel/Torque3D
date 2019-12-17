@@ -61,7 +61,7 @@ static const char * prependDollar ( const char * name )
 {
    if(name[0] != '$')
    {
-      S32   len = dStrlen(name);
+      U32   len = dStrlen(name);
       AssertFatal(len < sizeof(scratchBuffer)-2, "CONSOLE: name too long");
       scratchBuffer[0] = '$';
       dMemcpy(scratchBuffer + 1, name, len + 1);
@@ -74,7 +74,7 @@ static const char * prependPercent ( const char * name )
 {
    if(name[0] != '%')
    {
-      S32   len = dStrlen(name);
+      U32   len = dStrlen(name);
       AssertFatal(len < sizeof(scratchBuffer)-2, "CONSOLE: name too long");
       scratchBuffer[0] = '%';
       dMemcpy(scratchBuffer + 1, name, len + 1);
@@ -252,7 +252,7 @@ static bool active = false;
 static bool newLogFile;
 static const char *logFileName;
 
-static const S32 MaxCompletionBufferSize = 4096;
+static const U32 MaxCompletionBufferSize = 4096;
 static char completionBuffer[MaxCompletionBufferSize];
 static char tabBuffer[MaxCompletionBufferSize] = {0};
 static SimObjectPtr<SimObject> tabObject;
@@ -2136,7 +2136,7 @@ bool expandPath(char* pDstPath, U32 size, const char* pSrcPath, const char* pWor
       }
 
       // Skip the expando and the following slash.
-      pSrc += dStrlen(pathBuffer) + 1;
+      pSrc += strlen(pathBuffer) + 1;
 
       // Format the output path.
       dSprintf(pathBuffer, sizeof(pathBuffer), "%s/%s", expandoPath, pSrc);
