@@ -441,7 +441,7 @@ void Trigger::onDeleteNotify( SimObject *obj )
          {
             mObjects.erase(i);
             if (mDataBlock)
-               mDataBlock->onLeaveTrigger_callback( this, pScene );
+               mDataBlock->onLeaveTrigger_callback( this, NULL );
             break;
          }
       }
