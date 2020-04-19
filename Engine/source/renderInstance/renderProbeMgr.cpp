@@ -467,8 +467,7 @@ void RenderProbeMgr::_setupStaticParameters()
       probeWorldToObjData[mEffectiveProbeCount] = curEntry.getTransform();
 
       Box3F refCube = Box3F::One;
-      Point3F scale = curEntry.getTransform().getScale() / 2;
-      refCube.scale(curEntry.mProbeRefScale*curEntry.getTransform().getScale());
+      refCube.scale(curEntry.mProbeRefScale/2*curEntry.getTransform().getScale());
       refCube.setCenter(refPos);
       Point3F bbMin = refCube.minExtents;
       Point3F bbMax = refCube.maxExtents;
@@ -680,7 +679,7 @@ void RenderProbeMgr::getBestProbes(const Point3F& objPosition, ProbeDataSet* pro
          probeDataSet->probeWorldToObjArray[probeDataSet->effectiveProbeCount] = curEntry.getTransform();
 
          Box3F refCube = Box3F::One;
-         refCube.scale(curEntry.mProbeRefScale*curEntry.getTransform().getScale());
+         refCube.scale(curEntry.mProbeRefScale/2*curEntry.getTransform().getScale());
          refCube.setCenter(refPos);
          Point3F bbMin = refCube.minExtents;
          Point3F bbMax = refCube.maxExtents;
