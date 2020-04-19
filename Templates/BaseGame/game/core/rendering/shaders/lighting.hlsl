@@ -371,8 +371,8 @@ float3 boxProject(float3 wsPosition, float3 wsReflectVec, float4x4 worldToObj, f
    float3 PositionLS = mul(worldToObj, float4(wsPosition, 1.0)).xyz;
 
    float3 unit = refBoxMax.xyz - refBoxMin.xyz;
-   float3 plane1vec = (unit / 2 - PositionLS) / RayLS;
-   float3 plane2vec = (-unit / 2 - PositionLS) / RayLS;
+   float3 plane1vec = (unit - PositionLS) / RayLS;
+   float3 plane2vec = (-unit - PositionLS) / RayLS;
    float3 furthestPlane = max(plane1vec, plane2vec);
    float dist = min(min(furthestPlane.x, furthestPlane.y), furthestPlane.z);
    float3 posonbox = wsPosition + wsReflectVec * dist;

@@ -460,13 +460,19 @@ void RenderProbeMgr::_setupStaticParameters()
 
       //Setup
       Point3F probePos = curEntry.getPosition();
-      Point3F refPos = curEntry.getPosition() +curEntry.mProbeRefOffset;
+      Point3F refPos = curEntry.getPosition() + curEntry.mProbeRefOffset;
       probePositionsData[mEffectiveProbeCount] = Point4F(probePos.x, probePos.y, probePos.z,0);
       probeRefPositionsData[mEffectiveProbeCount] = Point4F(refPos.x, refPos.y, refPos.z, 0);
 
       probeWorldToObjData[mEffectiveProbeCount] = curEntry.getTransform();
-      Point3F bbMin = refPos - curEntry.mProbeRefScale/2 * curEntry.getTransform().getScale();
-      Point3F bbMax = refPos + curEntry.mProbeRefScale/2 * curEntry.getTransform().getScale();
+
+      Box3F refCube = Box3F::One;
+      Point3F scale = curEntry.getTransform().getScale() / 2;
+      refCube.scale(curEntry.mProbeRefScale*curEntry.getTransform().getScale());
+      refCube.setCenter(refPos);
+      Point3F bbMin = refCube.minExtents;
+      Point3F bbMax = refCube.maxExtents;
+
       refBoxMinData[mEffectiveProbeCount] = Point4F(bbMin.x, bbMin.y, bbMin.z, 0);
       refBoxMaxData[mEffectiveProbeCount] = Point4F(bbMax.x, bbMax.y, bbMax.z, 0);
 
@@ -668,16 +674,19 @@ void RenderProbeMgr::getBestProbes(const Point3F& objPosition, ProbeDataSet* pro
 
          const ProbeRenderInst& curEntry = mRegisteredProbes[bestPickProbes[i]];
 
+         Point3F refPos = curEntry.getPosition()+curEntry.mProbeRefOffset;
          probeDataSet->probePositionArray[probeDataSet->effectiveProbeCount] = curEntry.getPosition();
-         probeDataSet->probeRefPositionArray[probeDataSet->effectiveProbeCount] = curEntry.mProbeRefOffset;
+         probeDataSet->probeRefPositionArray[probeDataSet->effectiveProbeCount] = refPos;
          probeDataSet->probeWorldToObjArray[probeDataSet->effectiveProbeCount] = curEntry.getTransform();
 
-         Point3F refPos = curEntry.getPosition() + curEntry.mProbeRefOffset;
-         Point3F refBoxMin = refPos - curEntry.mProbeRefScale * curEntry.getTransform().getScale();
-         Point3F refBoxMax = refPos + curEntry.mProbeRefScale * curEntry.getTransform().getScale();
+         Box3F refCube = Box3F::One;
+         refCube.scale(curEntry.mProbeRefScale*curEntry.getTransform().getScale());
+         refCube.setCenter(refPos);
+         Point3F bbMin = refCube.minExtents;
+         Point3F bbMax = refCube.maxExtents;
 
-         probeDataSet->refBoxMinArray[probeDataSet->effectiveProbeCount] = Point4F(refBoxMin.x, refBoxMin.y, refBoxMin.z, 0);
-         probeDataSet->refBoxMaxArray[probeDataSet->effectiveProbeCount] = Point4F(refBoxMax.x, refBoxMax.y, refBoxMax.z, 0);
+         probeDataSet->refBoxMinArray[probeDataSet->effectiveProbeCount] = Point4F(bbMin.x, bbMin.y, bbMin.z, 0);
+         probeDataSet->refBoxMaxArray[probeDataSet->effectiveProbeCount] = Point4F(bbMax.x, bbMax.y, bbMax.z, 0);
          probeDataSet->probeConfigArray[probeDataSet->effectiveProbeCount] = Point4F(curEntry.mProbeShapeType,
             curEntry.mRadius,
             curEntry.mAtten,
