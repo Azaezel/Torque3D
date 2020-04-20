@@ -143,8 +143,7 @@ struct ProbeShaderConstants
    //Reflection Probes
    GFXShaderConstHandle *mProbePositionSC;
    GFXShaderConstHandle *mProbeRefPosSC;
-   GFXShaderConstHandle *mRefBoxMinSC;
-   GFXShaderConstHandle *mRefBoxMaxSC;
+   GFXShaderConstHandle *mRefBoxScaleSC;
    GFXShaderConstHandle *mWorldToObjArraySC;
    GFXShaderConstHandle *mProbeConfigDataSC;
    GFXShaderConstHandle *mProbeSpecularCubemapSC;
@@ -170,8 +169,7 @@ typedef Map<GFXShader*, ProbeShaderConstants*> ProbeConstantMap;
 struct ProbeDataSet
 {
    AlignedArray<Point4F> probePositionArray;
-   AlignedArray<Point4F> refBoxMinArray;
-   AlignedArray<Point4F> refBoxMaxArray;
+   AlignedArray<Point4F> refBoxScaleArray;
    AlignedArray<Point4F> probeRefPositionArray;
    AlignedArray<Point4F> probeConfigArray;
 
@@ -188,8 +186,7 @@ struct ProbeDataSet
       MAX_PROBE_COUNT = maxProbeCount;
 
       probePositionArray = AlignedArray<Point4F>(maxProbeCount, sizeof(Point4F));
-      refBoxMinArray = AlignedArray<Point4F>(maxProbeCount, sizeof(Point4F));
-      refBoxMaxArray = AlignedArray<Point4F>(maxProbeCount, sizeof(Point4F));
+      refBoxScaleArray = AlignedArray<Point4F>(maxProbeCount, sizeof(Point4F));
       probeRefPositionArray = AlignedArray<Point4F>(maxProbeCount, sizeof(Point4F));
       probeConfigArray = AlignedArray<Point4F>(maxProbeCount, sizeof(Point4F));
 
@@ -198,8 +195,7 @@ struct ProbeDataSet
       // Need to clear the buffers so that we don't leak
       // lights from previous passes or have NaNs.
       dMemset(probePositionArray.getBuffer(), 0, probePositionArray.getBufferSize());
-      dMemset(refBoxMinArray.getBuffer(), 0, refBoxMinArray.getBufferSize());
-      dMemset(refBoxMaxArray.getBuffer(), 0, refBoxMaxArray.getBufferSize());
+      dMemset(refBoxScaleArray.getBuffer(), 0, refBoxScaleArray.getBufferSize());
       dMemset(probeRefPositionArray.getBuffer(), 0, probeRefPositionArray.getBufferSize());
       dMemset(probeConfigArray.getBuffer(), 0, probeConfigArray.getBufferSize());
    }
@@ -241,16 +237,14 @@ class RenderProbeMgr : public RenderBinManager
    Vector<Point4F> probePositionsData;
    Vector<Point4F> probeRefPositionsData;
    Vector<MatrixF> probeWorldToObjData;
-   Vector<Point4F> refBoxMinData;
-   Vector<Point4F> refBoxMaxData;
+   Vector<Point4F> refBoxScaleData;
    Vector<Point4F> probeConfigData;
 
    bool            mHasSkylight;
    S32             mSkylightCubemapIdx;
 
    AlignedArray<Point4F> mProbePositions;
-   AlignedArray<Point4F> mRefBoxMin;
-   AlignedArray<Point4F> mRefBoxMax;
+   AlignedArray<Point4F> mRefBoxScale;
    AlignedArray<float> mProbeUseSphereMode;
    AlignedArray<float> mProbeRadius;
    AlignedArray<float> mProbeAttenuation;
