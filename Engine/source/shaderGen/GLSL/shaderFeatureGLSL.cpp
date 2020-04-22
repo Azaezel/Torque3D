@@ -3048,7 +3048,7 @@ void ReflectionProbeFeatGLSL::processPix(Vector<ShaderComponent*>& componentList
    Var *curColor = (Var*)LangElement::find(getOutputTargetVarName(ShaderFeature::DefaultTarget));
       
    //Reflection vec
-   String computeForwardProbes = String("   @.rgb = computeForwardProbes(@,@,@,@,@,@,@,@,@,\r\n\t\t");
+   String computeForwardProbes = String("   @.rgb = computeForwardProbes(@,@,@,@,@,@,@,@,\r\n\t\t");
    computeForwardProbes += String("@,@,\r\n\t\t");
    computeForwardProbes += String("@,@).rgb; \r\n");
 

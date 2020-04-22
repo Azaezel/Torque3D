@@ -3137,7 +3137,7 @@ void ReflectionProbeFeatHLSL::processPix(Vector<ShaderComponent*> &componentList
       ibl = new Var("ibl", "float3");
    }
 
-   String computeForwardProbes = String::String("   @ = computeForwardProbes(@,@,@,@,@,@,@,@,@,\r\n\t\t");
+   String computeForwardProbes = String::String("   @ = computeForwardProbes(@,@,@,@,@,@,@,@,\r\n\t\t");
    computeForwardProbes += String::String("@,TORQUE_SAMPLER2D_MAKEARG(@),\r\n\t\t"); 
    computeForwardProbes += String::String("TORQUE_SAMPLERCUBEARRAY_MAKEARG(@),TORQUE_SAMPLERCUBEARRAY_MAKEARG(@)).rgb; \r\n");
       
